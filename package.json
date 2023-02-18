@@ -5,6 +5,7 @@
     "dev": "nuxt dev",
     "start:docker": "docker compose up -d",
     "stop:docker": "docker compose down",
+    "sh:docker": "sudo docker run -it -v $(pwd):/app node:19-alpine /bin/sh",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
