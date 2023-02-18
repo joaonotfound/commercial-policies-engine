@@ -1,11 +1,9 @@
-
-
 services:
   dev-cpe:
+    image: node:19-alpine
+    working_dir: /app
+    command: yarn dev --hostname 0.0.0.0
     volumes:
       - ./:/app
     ports:
       - 3000:3000
-    build:
-      context: .
-      dockerfile: Dockerfile  
