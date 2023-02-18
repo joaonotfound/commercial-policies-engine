@@ -5,5 +5,6 @@ module.exports = {
     node: true,
   },
   extends: ['plugin:nuxt/recommended', 'prettier'],
+  plugins: ['jest'],
   rules: {},
 }
