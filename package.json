@@ -3,6 +3,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "start:docker": "docker compose up -d",
+    "stop:docker": "docker compose down",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
