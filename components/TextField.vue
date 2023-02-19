@@ -15,7 +15,7 @@
       :value="value"
       class="transition rounded-sm text-base py-2 pl-4 pr-2 ease-in-out text-dark-d2 block border border-solid border-light-d2 bg-light focus:bg-primary-l3 focus:border-primary-l1 focus:outline-none"
       @input="$emit('update:value', ($event.target as any).value)" />
-    <p v-if="state" :class="state.level">
+    <p v-if="state" :class="state.level" class="ml-1 text-xs mt-1 font-medium">
       {{ state?.message }}
     </p>
   </div>
@@ -35,21 +35,15 @@ defineProps<{
 </script>
 <style scoped>
 .warning-input {
-  @apply bg-warning-l2 border-warning text-warning;
+  @apply bg-warning-l2 border-warning text-warning placeholder:text-warning-l1;
 }
 
 .error-input {
-  @apply bg-error-l2 border-error text-error;
+  @apply bg-error-l2 border-error text-error placeholder:text-error-l1;
 }
 
 .success-input {
   @apply bg-success-l2 border-success text-success;
-}
-
-.warning,
-.error,
-.success {
-  @apply ml-1 text-sm mt-1;
 }
 
 .error {
