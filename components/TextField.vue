@@ -1,10 +1,10 @@
 <!-- eslint-disable vue/html-closing-bracket-newline -->
 <!-- eslint-disable vue/html-self-closing -->
 <template>
-  <div class="mt-2">
+  <div class="mt-2 h-[5rem]">
     <label
       for="text-field"
-      class="text-md focus:border-blue text-dark-d2 inline-block capitalize">
+      class="font-light text-sm focus:border-blue text-dark-l2 inline-block capitalize">
       {{ label }}
     </label>
     <input
@@ -13,9 +13,9 @@
       :type="textType ?? 'text'"
       :class="`${state?.level}-input`"
       :value="value"
-      class="transition rounded-sm text-base py-2 pl-4 pr-2 ease-in-out text-dark-d2 block border border-solid border-light-d2 bg-light focus:bg-primary-l3 focus:border-primary-l1 focus:outline-none"
+      class="transition w-[100%] rounded-sm text-base py-2 pl-4 pr-2 ease-in-out text-dark-d2 block border border-solid border-light-d2 bg-light focus:bg-primary-l3 focus:border-primary-l1 focus:outline-none"
       @input="$emit('update:value', ($event.target as any).value)" />
-    <p v-if="state" :class="state.level" class="ml-1 text-xs mt-1 font-medium">
+    <p v-if="state" :class="state.level" class="ml-1 text-xs mt-1 font-light">
       {{ state?.message }}
     </p>
   </div>

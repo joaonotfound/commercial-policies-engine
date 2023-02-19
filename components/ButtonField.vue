@@ -11,9 +11,8 @@ defineProps<{
     <button
       :disabled="disabled"
       :class="type ?? 'primary'"
-      class="py-2 rounded-md px-5 font-normal cursor-pointer transition ease-in-out hover:shadow-sm m-1 focus:shadow-md outline-none"
-      @click="$emit('click')"
-    >
+      class="py-2 w-[100%] rounded-md px-5 font-normal cursor-pointer transition ease-in-out hover:shadow-sm m-1 focus:shadow-md outline-none"
+      @click="$emit('click')">
       {{ label }}
     </button>
   </div>
