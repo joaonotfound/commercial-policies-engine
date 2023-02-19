@@ -3,5 +3,6 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "types": ["@types/jest"]
-  }
+  },
+  "include": ["src/**/*.vue"]
 }
