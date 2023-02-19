@@ -54,6 +54,13 @@ module.exports = {
         l1: '#89A7E0',
         l2: '#EEF2FA',
       },
+      light: {
+        d2: '#D3D6E0',
+        d1: '#E2E4EA',
+        DEFAULT: '#F1F2F5',
+        l1: '#F7F8F9',
+        l2: '#FFFFFF',
+      },
     },
     extend: {},
   },
