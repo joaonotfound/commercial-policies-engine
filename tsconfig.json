@@ -4,5 +4,5 @@
   "compilerOptions": {
     "types": ["@types/jest"]
   },
-  "include": ["src/**/*.vue"]
+  "include": ["tests/**/*.ts"]
 }
