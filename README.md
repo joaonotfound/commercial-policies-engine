@@ -1,6 +1,8 @@
 [![My Skills](https://skills.thijs.gg/icons?i=vue,docker,ts,mongodb,nuxtjs,nodejs,tailwind,)](https://skills.thijs.gg)
 
-_Vue3, Docker, Typescript, Mongodb, Nuxt3, Nodejs and Tailwind_
+_Vue3, Nuxt3, Typescript, Nodejs, Mongodb, Docker and Tailwindcss_
+
+This project was made using best practices and design patterns like BDD, Clean Architecture, DDD, DRY, Small Commits, SOLID principles and TDD.
 
 # Commercial Policies Engine
 
@@ -35,7 +37,7 @@ These third-party systems must be prepared to receive SQL commands or adopt the 
 Option to inject functions by dependency, where a function will be included within the sales order object.
 If the function is null, it will be possible to execute code within the Web API. If informed, the received function will be executed.
 
-### Screenshots
+# Screenshots
 
 ## Login Page
 
