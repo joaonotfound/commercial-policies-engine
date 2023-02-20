@@ -1,6 +1,6 @@
 import {
   Account,
-  AuthenticateUsecase,
+  AuthenticationUsecase,
   DomainError,
   Result,
   Session
@@ -11,7 +11,7 @@ import {
   GenerateAccessToken,
   Hasher
 } from '../protocols'
-export class DbAuthenticate implements AuthenticateUsecase {
+export class DbAuthentication implements AuthenticationUsecase {
   // eslint-disable-next-line no-useless-constructor
   constructor(
     private readonly findAccount: FindAccountByUsername,

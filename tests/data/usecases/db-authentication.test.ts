@@ -1,5 +1,5 @@
 /* eslint-disable require-await */
-import { DbAuthenticate, error } from '../../../server/data'
+import { DbAuthentication, error } from '../../../server/data'
 import {
   MockFindAccountByUsername,
   MockGenerateAccessToken,
@@ -12,7 +12,11 @@ const makeSut = () => {
   const findAccountMock = new MockFindAccountByUsername()
   const hasherMock = new MockHasher()
   const generateTokenMock = new MockGenerateAccessToken()
-  const sut = new DbAuthenticate(findAccountMock, hasherMock, generateTokenMock)
+  const sut = new DbAuthentication(
+    findAccountMock,
+    hasherMock,
+    generateTokenMock
+  )
   return { sut, findAccountMock, hasherMock, generateTokenMock }
 }
 

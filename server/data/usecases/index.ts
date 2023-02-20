@@ -1,1 +1,1 @@
-export * from './db-authenticate'
+export * from './db-authentication'
