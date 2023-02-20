@@ -7,15 +7,15 @@ import {
 } from '../../domain'
 import { error, ok } from '../helpers'
 import {
-  Encrypter,
   FindAccountByUsername,
-  GenerateAccessToken
+  GenerateAccessToken,
+  Hasher
 } from '../protocols'
 export class DbAuthenticate implements AuthenticateUsecase {
   // eslint-disable-next-line no-useless-constructor
   constructor(
     private readonly findAccount: FindAccountByUsername,
-    private readonly encrypter: Encrypter,
+    private readonly hasher: Hasher,
     private readonly generataToken: GenerateAccessToken
   ) {}
 
@@ -31,8 +31,8 @@ export class DbAuthenticate implements AuthenticateUsecase {
       if (account === undefined) {
         return error(DomainError.invalidCredentials)
       }
-      const encryptedPassword = await this.encrypter.encrypt(password)
-      if (account.password !== encryptedPassword) {
+      const hashedPassword = await this.hasher.generateHash(password)
+      if (account.password !== hashedPassword) {
         return error(DomainError.invalidCredentials)
       }
       const accessToken = await this.generataToken.generateAccessToken(account)
