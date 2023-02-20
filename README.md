@@ -1,3 +1,7 @@
+[![My Skills](https://skills.thijs.gg/icons?i=vue,docker,ts,mongodb,nuxtjs,nodejs,tailwind,)](https://skills.thijs.gg)
+
+_Vue3, Docker, Typescript, Mongodb, Nuxt3, Nodejs and Tailwind_
+
 # Commercial Policies Engine
 
 Introduction
@@ -30,3 +34,9 @@ These third-party systems must be prepared to receive SQL commands or adopt the 
 
 Option to inject functions by dependency, where a function will be included within the sales order object.
 If the function is null, it will be possible to execute code within the Web API. If informed, the received function will be executed.
+
+### Screenshots
+
+## Login Page
+
+![Login screen](./documentation/screenshots/login_screen.png)
