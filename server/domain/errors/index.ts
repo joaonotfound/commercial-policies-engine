@@ -1,4 +1,4 @@
 export enum DomainError {
-  invalidCredentials,
-  unexpectedError
+  invalidCredentials = 'Account not found',
+  unexpectedError = 'An unexpected error ocurred.'
 }
