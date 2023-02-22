@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Commercial Policies Engine
+  version: 1.0.0
+
+tags:
+  - name: Authentication
+    description: Routes to login and signup
+paths:
+  /logon:
+    post:
+      tags:
+        - Authentication
+      summary: Logon on the system.
+      description: Authenticate on the system using your username and password
+      parameters:
+        - name: username
+          in: query
+          description: Your username on the system
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: Your password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+        '400':
+          description: Invalid credentials
+
+components:
+  schemas:
+    AccessToken:
+      type: object
+      properties:
+        accessToken:
+          type: string
