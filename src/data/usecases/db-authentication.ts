@@ -1,9 +1,9 @@
 import {
   FindAccountByUsername,
   GenerateAccessToken,
-  Hasher,
   error,
-  ok
+  ok,
+  HashComparer
 } from '@/data'
 import {
   Account,
@@ -17,8 +17,8 @@ export class DbAuthentication implements AuthenticationUsecase {
   // eslint-disable-next-line no-useless-constructor
   constructor(
     private readonly findAccount: FindAccountByUsername,
-    private readonly hasher: Hasher,
-    private readonly generataToken: GenerateAccessToken
+    private readonly hashComparer: HashComparer,
+    private readonly generateTokenRepository: GenerateAccessToken
   ) {}
 
   async authenticate({
@@ -26,21 +26,23 @@ export class DbAuthentication implements AuthenticationUsecase {
     password
   }: Account): Promise<Result<Session, DomainError>> {
     try {
-      if (username.length === 0 || password.length === 0) {
-        return error(DomainError.invalidCredentials)
-      }
       const [account] = await this.findAccount.findAccountByUsername(username)
-      if (account === undefined) {
-        return error(DomainError.invalidCredentials)
+      if (account) {
+        const isValid = await this.hashComparer.compareHash(
+          password,
+          account.password
+        )
+        if (!isValid) {
+          return error(DomainError.invalidCredentials)
+        }
+        return ok({
+          accessToken: await this.generateTokenRepository.generateAccessToken(
+            account
+          )
+        })
       }
-      const hashedPassword = await this.hasher.generateHash(password)
-      if (account.password !== hashedPassword) {
-        return error(DomainError.invalidCredentials)
-      }
-      const accessToken = await this.generataToken.generateAccessToken(account)
-      return ok({
-        accessToken
-      })
+
+      return error(DomainError.invalidCredentials)
     } catch (err) {
       console.log('an unexpected error ocurred.', err)
       return error(DomainError.unexpectedError)
