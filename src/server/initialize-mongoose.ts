@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 
+declare const useRuntimeConfig: () => any
+
 const config = useRuntimeConfig()
 export default async () => {
   try {

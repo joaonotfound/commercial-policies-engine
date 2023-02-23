@@ -3,15 +3,15 @@ import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss'],
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
-  components: ['src/view/components'],
+  components: ['view/components'],
   dir: {
-    pages: 'src/view/pages',
-    assets: 'src/view/assets',
-    layouts: 'src/view/layouts',
-    public: 'src/view/public',
-    plugins: 'src/view/plugins'
+    pages: 'view/pages',
+    assets: 'view/assets',
+    layouts: 'view/layouts',
+    public: 'view/public',
+    plugins: 'view/plugins'
   },
-  appDir: 'src/view',
+  srcDir: 'src/',
   runtimeConfig: {
     mongoUrl: process.env.MONGO_URL
   },

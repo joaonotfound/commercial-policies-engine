@@ -1,6 +1,5 @@
 import { defineEventHandler } from 'h3'
-import { adaptHttp } from '../helpers'
-import { makeLoginController } from '../factories'
+import { makeLoginController, adaptHttp } from '../../main'
 
 const loginController = makeLoginController()
 

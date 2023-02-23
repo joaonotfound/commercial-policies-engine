@@ -3,8 +3,8 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "types": ["@types/jest"],
-    "rootDirs": ["src", "tests"],
     "baseUrl": "src",
+    "rootDirs": ["src", "tests"],
     "paths": {
       "@/tests/*": ["../tests/*"],
       "@/*": ["*"]
