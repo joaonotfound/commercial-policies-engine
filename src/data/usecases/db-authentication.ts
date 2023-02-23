@@ -41,7 +41,8 @@ export class DbAuthentication implements AuthenticationUsecase {
       return ok({
         accessToken
       })
-    } catch {
+    } catch (err) {
+      console.log('an unexpected error ocurred.', err)
       return error(DomainError.unexpectedError)
     }
   }
