@@ -14,6 +14,7 @@ const {
   usernameState,
   passwordState,
   validForm,
+  isLoading,
   credentialsError,
   clearCredentialsError,
   login
@@ -47,7 +48,10 @@ const {
 
     <div class="justify-end">
       <div class="mt-6 mb-2">
-        <ButtonField :disabled="!validForm" label="Submit" @click="login()" />
+        <ButtonField
+          :disabled="!validForm || isLoading"
+          label="Submit"
+          @click="login()" />
       </div>
       <div class="font-light text-xs mx-1">
         <a

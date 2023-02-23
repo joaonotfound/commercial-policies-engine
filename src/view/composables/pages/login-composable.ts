@@ -13,6 +13,7 @@ export const useLoginscreenComposable = () => {
   const clearCredentialsError = () => {
     credentialsError.value = null
   }
+  const isLoading = ref<boolean>(false)
 
   const passwordState = computed(() => usePasswordValidator(password.value))
   const usernameState = computed(() => useUsernameValidator(username.value))
@@ -26,7 +27,8 @@ export const useLoginscreenComposable = () => {
   )
   // eslint-disable-next-line require-await
   const login = async () => {
-    const { data, error } = useLazyFetch('/api/logon', {
+    isLoading.value = true
+    const { error, data } = useLazyFetch('/api/logon', {
       method: 'post',
       params: {
         username: username.value,
@@ -35,10 +37,13 @@ export const useLoginscreenComposable = () => {
     })
     watch(error, (_) => {
       credentialsError.value = 'Could not find your account'
+      isLoading.value = false
     })
-    watch(data, (token) => {
-      credentialsError.value = null
-      console.log(token)
+    watch(data, (_) => {
+      setTimeout(() => {
+        credentialsError.value = null
+        isLoading.value = false
+      })
     })
   }
   return {
@@ -49,6 +54,7 @@ export const useLoginscreenComposable = () => {
     credentialsError,
     clearCredentialsError,
     validForm,
+    isLoading,
     login
   }
 }
