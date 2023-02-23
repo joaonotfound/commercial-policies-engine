@@ -1,36 +1,30 @@
 <!-- eslint-disable vue/multi-word-component-names -->
+<!-- eslint-disable require-await -->
+<!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import TextField from '../components/TextField.vue'
-
-import {
-  usePasswordValidator,
-  useUsernameValidator
-} from '../composables/validators'
-
+import TextField from '@/view/components/TextField.vue'
+import { useLoginscreenComposable } from '@/view/composables/pages'
 definePageMeta({
   layout: 'login'
 })
-
-const username = ref<string | null>(null)
-const password = ref<string | null>(null)
-
-const passwordState = computed(() => usePasswordValidator(password.value))
-const usernameState = computed(() => useUsernameValidator(username.value))
-const validForm = computed(
-  () =>
-    username.value != null &&
-    password.value != null &&
-    (passwordState.value == null || passwordState.value.level === 'success') &&
-    usernameState.value == null
-)
-const login = () => {
-  console.log(username.value, password.value)
-}
+const {
+  username,
+  password,
+  usernameState,
+  passwordState,
+  validForm,
+  credentialsError,
+  login
+} = useLoginscreenComposable()
 </script>
 
 <template>
   <div class="flex flex-col">
+    <div
+      v-if="credentialsError"
+      class="bg-error-l1/50 text-error-d2 text-sm py-2 px-4 rounded-sm border-error-d2">
+      {{ credentialsError }}
+    </div>
     <div class="flex-1 flex flex-col">
       <TextField
         v-model:value="username"
