@@ -18,3 +18,4 @@ services:
       - MONGO_URL=mongodb://root:password@mongodb:27017
     ports:
       - 3000:3000
+      - 24678:24678

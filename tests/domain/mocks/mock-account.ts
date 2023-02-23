@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { Account } from '../../../server/domain'
+import { Account } from '@/domain'
 
 export const mockAccount = (): Account => ({
   username: faker.internet.userName(),

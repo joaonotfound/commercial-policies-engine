@@ -1,4 +1,4 @@
-import { Encrypter } from '~~/server/data'
+import { Encrypter } from '@/data'
 
 export class MockEncrypter implements Encrypter {
   mockEncrypt(response: string) {

@@ -7,10 +7,11 @@ module.exports = {
   extends: [
     '@nuxtjs/eslint-config-typescript',
     'plugin:nuxt/recommended',
+    'plugin:vue/vue3-recommended',
     'prettier'
   ],
   rules: {
     'no-console': 'off'
   },
-  plugins: ['jest']
+  plugins: ['jest', '@typescript-eslint']
 }

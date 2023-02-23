@@ -1,5 +1,5 @@
-import { FindAccountByUsername } from '@/server/data'
-import { Account } from '@/server/domain'
+import { FindAccountByUsername } from '@/data'
+import { Account } from '@/domain'
 
 export class MockFindAccountByUsername implements FindAccountByUsername {
   private _response: Account[] = []

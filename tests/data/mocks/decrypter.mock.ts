@@ -1,5 +1,5 @@
 // import jest from 'jest'
-import { Decrypter } from '~~/server/data'
+import { Decrypter } from '@/data'
 
 export class DecrypterMock implements Decrypter {
   mockDecrypter(value: string) {

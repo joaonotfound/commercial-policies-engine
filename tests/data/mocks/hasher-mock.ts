@@ -1,4 +1,4 @@
-import { Hasher } from '@/server/data'
+import { Hasher } from '@/data'
 
 export class MockHasher implements Hasher {
   mockGenerateHash(value: string) {

@@ -1,5 +1,5 @@
-import { GenerateAccessToken } from '~~/server/data'
-import { Account } from '~~/server/domain'
+import { GenerateAccessToken } from '@/data'
+import { Account } from '@/domain'
 
 export class MockGenerateAccessToken implements GenerateAccessToken {
   mockGenerateAccessToken(data: string) {

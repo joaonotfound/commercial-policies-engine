@@ -1,8 +1,9 @@
 module.exports = {
+  roots: ['<rootDir>/tests'],
   moduleNameMapper: {
     '@/tests/(.*)': '<rootDir>/tests/$1',
-    '@/(.*)': '<rootDir>/$1'
-    // '^@/(.*)$': '<rootDir>/$1',
+    '@/(.*)': '<rootDir>/src/$1'
+    // '^@/(.*)$': '<rootDir>/src/$1'
     // '^~/(.*)$': '<rootDir>/$1'
     // '^vue$': 'vue/dist/vue.common.js'
   },
@@ -13,8 +14,8 @@ module.exports = {
   },
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/components/**/*.vue',
-    '<rootDir>/pages/**/*.vue'
+    '<rootDir>/src/view/components/**/*.vue',
+    '<rootDir>/src/view/pages/**/*.vue'
   ],
   testEnvironment: 'jsdom'
 }

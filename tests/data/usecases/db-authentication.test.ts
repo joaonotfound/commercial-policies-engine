@@ -1,12 +1,12 @@
 /* eslint-disable require-await */
-import { DbAuthentication, error } from '../../../server/data'
+import { DbAuthentication, error } from '@/data'
 import {
   MockFindAccountByUsername,
   MockGenerateAccessToken,
   MockHasher
-} from '../mocks'
-import { DomainError } from '@/server/domain'
-import { mockAccount } from '@/tests/domain/'
+} from '@/tests/data'
+import { mockAccount } from '@/tests/domain'
+import { DomainError } from '@/domain'
 
 const makeSut = () => {
   const findAccountMock = new MockFindAccountByUsername()
