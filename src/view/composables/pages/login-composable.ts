@@ -10,6 +10,9 @@ export const useLoginscreenComposable = () => {
   const password = ref<string | null>(null)
 
   const credentialsError = ref<string | null>(null)
+  const clearCredentialsError = () => {
+    credentialsError.value = null
+  }
 
   const passwordState = computed(() => usePasswordValidator(password.value))
   const usernameState = computed(() => useUsernameValidator(username.value))
@@ -44,6 +47,7 @@ export const useLoginscreenComposable = () => {
     usernameState,
     passwordState,
     credentialsError,
+    clearCredentialsError,
     validForm,
     login
   }
