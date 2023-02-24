@@ -2,7 +2,7 @@ import { useLazyFetch } from 'nuxt/app'
 import { watch } from 'vue'
 import { error, ok } from '@/data'
 import { Result, Session } from '@/domain'
-import { Authenticate } from '@/view/protocols'
+import { Authenticate } from '@/view'
 
 type HttpResponse = {
   statusCode: number | undefined

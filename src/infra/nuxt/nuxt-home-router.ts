@@ -1,5 +1,5 @@
 import { useRouter } from 'vue-router'
-import { HomeRouter } from '@/view/protocols'
+import { HomeRouter } from '@/view'
 
 export class NuxtRedirectToHome implements HomeRouter {
   redirectToHome(): void {

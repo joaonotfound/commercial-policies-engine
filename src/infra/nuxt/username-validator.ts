@@ -1,5 +1,4 @@
-import { InputState } from '../../view/composables/types'
-import { UsernameValidator } from '@/view/protocols'
+import { InputState, UsernameValidator } from '@/view'
 
 const invalidUsernameState: InputState = {
   level: 'error',

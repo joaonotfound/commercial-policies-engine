@@ -1,5 +1,4 @@
-import { InputState } from '../../view/composables/types'
-import { PasswordValidator } from '@/view/protocols'
+import { InputState, PasswordValidator } from '@/view'
 
 const minLength = (value: string, length: number) => value.length >= length
 
