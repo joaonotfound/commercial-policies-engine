@@ -9,11 +9,15 @@ const isAuthenticated = () => {
   return accessToken.value !== undefined
 }
 
+const publicPages = ['/login', '/sign-up']
+
 export default defineNuxtRouteMiddleware(() => {
   addRouteMiddleware(
     'only-authenticated',
     ({ path }) =>
-      path === '/login' || path.startsWith('/api/') || isAuthenticated()
+      publicPages.includes(path) ||
+      path.startsWith('/api/') ||
+      isAuthenticated()
         ? true
         : '/login',
     { global: true }

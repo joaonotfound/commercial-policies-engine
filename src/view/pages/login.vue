@@ -78,7 +78,7 @@ watch(mainError, (error) => {
           class="text-primary block mb-1 hover:underline"
           >Forgot your password?</a
         >
-        <a href="/signup" class="text-dark-l2 block"
+        <a href="/sign-up" class="text-dark-l2 block"
           >Don't have an account?
           <span class="text-primary hover:underline">Sign up</span></a
         >
