@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     mongoUrl: process.env.MONGO_URL
   },
-  plugins: [],
+  plugins: ['~/view/plugins/middleware-plugins.ts'],
   nitro: {
     srcDir: 'src/server',
     plugins: ['initialize-mongoose.ts']

@@ -15,7 +15,7 @@ const {
   passwordState,
   validForm,
   isLoading,
-  credentialsError,
+  mainError,
   clearCredentialsError,
   login
 } = useLoginscreenComposable()
@@ -24,10 +24,10 @@ const {
 <template>
   <div class="flex flex-col">
     <div
-      v-show="credentialsError"
+      v-show="mainError"
       class="bg-error/20 text-error-d2 text-sm py-2 px-4 rounded-md">
       <p>
-        {{ credentialsError }}
+        {{ mainError }}
       </p>
     </div>
     <div class="flex-1 flex flex-col">

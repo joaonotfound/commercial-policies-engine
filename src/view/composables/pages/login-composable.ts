@@ -86,10 +86,12 @@ export const useLoginscreenComposable = () => {
       setError('Could not find your account')
       isLoading.value = false
     })
-    watch(data, (response) => {
+    watch(data, () => {
+      const { value: response } = data
       isLoading.value = false
       if (!validateResponse(response)) {
-        return setError('Houve um error! Tente novamente mais tarde')
+        console.log('error: ', response)
+        return setError('Ops! Houve um error! Tente novamente mais tarde')
       }
       setCookie(response.accessToken)
       redirectToHome()
@@ -100,7 +102,7 @@ export const useLoginscreenComposable = () => {
     password,
     usernameState,
     passwordState,
-    credentialsError: mainError,
+    mainError,
     clearCredentialsError,
     validForm,
     isLoading,
