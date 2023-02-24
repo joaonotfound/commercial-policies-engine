@@ -71,12 +71,16 @@ export const useLoginPresenter = (
   } = createRef(usernameValidator, passwordValidator)
 
   const login = async () => {
-    const response = await auth.authenticate(username.value, password.value)
-    if (response.ok) {
-      await saveSession.saveSession(response.value)
-      return homeRouter.redirectToHome()
+    try {
+      const response = await auth.authenticate(username.value, password.value)
+      if (response.ok) {
+        await saveSession.saveSession(response.value)
+        return homeRouter.redirectToHome()
+      }
+      return setMainError(response.error)
+    } catch {
+      return setMainError('unexpected error')
     }
-    return setMainError(response.error)
   }
 
   return {
