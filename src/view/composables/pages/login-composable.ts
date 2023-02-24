@@ -1,6 +1,5 @@
- 
 import { computed, ref, watch } from 'vue'
-import { useLazyFetch, useRouter } from 'nuxt/app'
+import { useLazyFetch, useRouter, useCookie } from 'nuxt/app'
 import {
   usePasswordValidator,
   useUsernameValidator
@@ -61,6 +60,12 @@ const redirectToHome = () => {
   const router = useRouter()
   router.replace('/home')
 }
+
+const setCookie = (accessToken: string) => {
+  const cookie = useCookie('x-access-token')
+  cookie.value = accessToken
+}
+
 export const useLoginscreenComposable = () => {
   const {
     username,
@@ -86,6 +91,7 @@ export const useLoginscreenComposable = () => {
       if (!validateResponse(response)) {
         return setError('Houve um error! Tente novamente mais tarde')
       }
+      setCookie(response.accessToken)
       redirectToHome()
     })
   }
