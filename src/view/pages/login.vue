@@ -2,8 +2,11 @@
 <!-- eslint-disable require-await -->
 <!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
+import { useNuxtApp } from 'nuxt/app'
+import { LoginPresenter } from '../presenters'
 import TextField from '@/view/components/TextField.vue'
-import { useLoginscreenComposable } from '@/view/composables/pages'
+
+const app = useNuxtApp()
 definePageMeta({
   title: 'Login',
   layout: 'login'
@@ -18,7 +21,7 @@ const {
   mainError,
   clearCredentialsError,
   login
-} = useLoginscreenComposable()
+} = app.$loginPresenter as LoginPresenter
 </script>
 
 <template>
@@ -49,7 +52,7 @@ const {
     <div class="justify-end">
       <div class="mt-6 mb-2">
         <ButtonField
-          :disabled="!validForm || isLoading"
+          :disabled="!validForm || isLoading || mainError"
           label="Submit"
           @click="login()" />
       </div>
