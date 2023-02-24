@@ -1,17 +1,27 @@
+ 
 import { computed, ref, watch } from 'vue'
-import { useLazyFetch } from 'nuxt/app'
+import { useLazyFetch, useRouter } from 'nuxt/app'
 import {
   usePasswordValidator,
   useUsernameValidator
 } from '@/view/composables/validators'
 
-export const useLoginscreenComposable = () => {
+const validateResponse = (
+  response: any
+): response is {
+  accessToken: string
+} => response.accessToken !== undefined
+
+const createRef = () => {
   const username = ref<string | null>(null)
   const password = ref<string | null>(null)
 
-  const credentialsError = ref<string | null>(null)
+  const mainError = ref<string | null>(null)
+  const setError = (value: string | null) => {
+    mainError.value = value
+  }
   const clearCredentialsError = () => {
-    credentialsError.value = null
+    mainError.value = null
   }
   const isLoading = ref<boolean>(false)
 
@@ -25,25 +35,58 @@ export const useLoginscreenComposable = () => {
         passwordState.value.level === 'success') &&
       usernameState.value == null
   )
+  return {
+    username,
+    password,
+    mainError,
+    setError,
+    clearCredentialsError,
+    isLoading,
+    passwordState,
+    usernameState,
+    validForm
+  }
+}
+
+const makeRequest = (username: string | null, password: string | null) => {
+  return useLazyFetch('/api/logon', {
+    method: 'post',
+    params: {
+      username,
+      password
+    }
+  })
+}
+const redirectToHome = () => {
+  const router = useRouter()
+  router.replace('/home')
+}
+export const useLoginscreenComposable = () => {
+  const {
+    username,
+    password,
+    mainError,
+    setError,
+    clearCredentialsError,
+    isLoading,
+    passwordState,
+    usernameState,
+    validForm
+  } = createRef()
   // eslint-disable-next-line require-await
   const login = async () => {
     isLoading.value = true
-    const { error, data } = useLazyFetch('/api/logon', {
-      method: 'post',
-      params: {
-        username: username.value,
-        password: password.value
-      }
-    })
+    const { error, data } = makeRequest(username.value, password.value)
     watch(error, (_) => {
-      credentialsError.value = 'Could not find your account'
+      setError('Could not find your account')
       isLoading.value = false
     })
-    watch(data, (_) => {
-      setTimeout(() => {
-        credentialsError.value = null
-        isLoading.value = false
-      })
+    watch(data, (response) => {
+      isLoading.value = false
+      if (!validateResponse(response)) {
+        return setError('Houve um error! Tente novamente mais tarde')
+      }
+      redirectToHome()
     })
   }
   return {
@@ -51,7 +94,7 @@ export const useLoginscreenComposable = () => {
     password,
     usernameState,
     passwordState,
-    credentialsError,
+    credentialsError: mainError,
     clearCredentialsError,
     validForm,
     isLoading,
