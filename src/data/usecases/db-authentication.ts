@@ -44,7 +44,6 @@ export class DbAuthentication implements AuthenticationUsecase {
 
       return error(DomainError.invalidCredentials)
     } catch (err) {
-      console.log('an unexpected error ocurred.', err)
       return error(DomainError.unexpectedError)
     }
   }
