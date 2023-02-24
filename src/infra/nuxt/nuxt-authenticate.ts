@@ -41,7 +41,7 @@ export class NuxtAuthenticate implements Authenticate {
       ? response.value
       : response.error.statusCode === 401
       ? error(
-          'We could not find you account. Please make sure you typed your usename and password correctly'
+          'We could not find your account. Check your username and password again.'
         )
       : error('Ops! Server error! Try again later...')
   }
