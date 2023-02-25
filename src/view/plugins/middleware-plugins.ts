@@ -9,7 +9,7 @@ const isAuthenticated = () => {
   return accessToken.value !== undefined
 }
 
-const publicPages = ['/login', '/sign-up']
+const publicPages = ['/login', '/sign-up', '/']
 
 export default defineNuxtRouteMiddleware(() => {
   addRouteMiddleware(
