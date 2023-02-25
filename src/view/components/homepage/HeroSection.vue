@@ -16,14 +16,14 @@
         <div class="mt-8 flex gap-3">
           <NuxtLink to="/login">
             <button
-              class="px-8 py-2 bg-primary-d2/80 rounded-md shadow-md text-light-l2 font-bold shadow-primary-l2/80 cursor-pointer hover:shadow-lg hover:bg-primary-d2 outline-none">
+              class="px-8 py-2 bg-primary-d2/80 rounded-md shadow-md text-light-l2 font-bold cursor-pointer hover:shadow-lg hover:bg-primary-d2 outline-none">
               Try for free
             </button>
           </NuxtLink>
           <NuxtLink
             to="https://gitlab.com/joaonotfound/commercial-policies-engine">
             <button
-              class="px-8 py-2 bg-[#e24329]/80 rounded-md shadow-md text-light-l2 font-bold shadow-primary-l2/80 cursor-pointer hover:shadow-lg outline-none">
+              class="px-8 py-2 bg-[#e24329]/80 rounded-md shadow-md text-light-l2 font-bold cursor-pointer hover:shadow-lg outline-none">
               <div class="flex items-center justify-center gap-3">
                 <div>
                   <font-awesome-icon icon="fa-brands fa-gitlab" />

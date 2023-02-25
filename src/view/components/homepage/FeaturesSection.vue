@@ -4,7 +4,7 @@ import FeatureComponent from './FeatureComponent.vue'
 
 <template>
   <div
-    class="bg-gradient-to-bl from-primary-d2/20 to-primary-d2/30 p-10 flex flex-col items-center">
+    class="bg-gradient-to-tr from-light-d2/40 to-light-l1/40 p-10 flex flex-col items-center">
     <p
       class="text-primary/70 font-light text-xl mb-2 uppercase tracking-tighter">
       Features
