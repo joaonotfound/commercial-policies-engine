@@ -18,7 +18,7 @@ defineProps<{
     </div>
 
     <button
-      class="bg-primary-d2/90 hover:bg-primary-d2 rounded-xl px-6 py-2 text-light font-bold shadow-lg outline-none">
+      class="bg-primary-d2/90 hover:bg-primary-d2 rounded-xl px-6 py-2 text-light font-bold outline-none hover:shadow-sm">
       More
     </button>
   </div>

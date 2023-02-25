@@ -5,8 +5,11 @@ import FeatureComponent from './FeatureComponent.vue'
 <template>
   <div
     class="bg-gradient-to-bl from-primary-d2/20 to-primary-d2/30 p-10 flex flex-col items-center">
-    <p class="text-primary/70 font-light text-xl mb-2 uppercase">Features</p>
-    <h2 class="text-primary-d1/70 font-bold text-3xl mb-12">
+    <p
+      class="text-primary/70 font-light text-xl mb-2 uppercase tracking-tighter">
+      Features
+    </p>
+    <h2 class="text-primary-d1/70 font-bold text-3xl mb-12 tracking-wider">
       Our Features and Services.
     </h2>
     <div

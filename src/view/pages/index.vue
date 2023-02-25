@@ -10,7 +10,7 @@ import FooterSection from '../components/homepage/FooterSection.vue'
   <div
     class="w-screen h-screen overflow-auto scrollbar-hide select-none scroll-smooth">
     <div
-      class="h-screen flex flex-col items-center justify-start bg-gradient-to-r from-primary-d2/20 to-primary-l2/30">
+      class="h-screen flex tracking-wide flex-col items-center justify-start bg-gradient-to-r from-primary-d2/20 to-primary-l2/30">
       <HomepageHeader />
       <HeroSection class="flex-1" />
     </div>

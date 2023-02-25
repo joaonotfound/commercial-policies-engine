@@ -5,7 +5,9 @@
     <div
       class="p-12 w-[60rem] flex md:flex-row sm:flex-col-reverse sm:justify-center items-center">
       <div>
-        <h1 class="text-dark-d2 font-bold text-6xl mb-2">SmartPoli</h1>
+        <h1 class="text-dark-d2 font-bold text-6xl mb-2 tracking-wide">
+          SmartPoli
+        </h1>
         <p class="w-[25rem] text-dark-d1 text-lg font-light">
           <i>SmartPoli</i>: A powerful tool to manage payment terms, discounts
           and interactions with customers and suppliers, optimizing time and
