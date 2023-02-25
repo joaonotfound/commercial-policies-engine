@@ -1,3 +1,3 @@
-export * from './Account.model'
-export * from './Session.model'
-export * from './Result.model'
+export * from './account-model'
+export * from './session'
+export * from './result'
