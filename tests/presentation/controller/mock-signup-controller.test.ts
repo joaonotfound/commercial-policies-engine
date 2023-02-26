@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { ok } from '@/data'
+import { error, ok } from '@/data'
 import {
   AddAccountUsecase,
   PublicAccount,
@@ -58,14 +58,16 @@ class SignupController implements Controller {
     private readonly addAccount: AddAccountUsecase
   ) {}
 
-   
   async handle(data: unknown | RegisterAccount): Promise<HttpResponse<any>> {
     const isValidSchema =
       this.validateRegisterAccountSchema.validateRegisterAccountSchema(data)
     if (!isValidSchema) {
       return HttpResponse.badRequest('missing params')
     }
-    await this.addAccount.addAccount(data)
+    const added = await this.addAccount.addAccount(data)
+    if (!added.ok) {
+      return HttpResponse.serverError('unexpected error')
+    }
     return HttpResponse.authorize('')
   }
 }
@@ -114,5 +116,13 @@ describe('SignupController', () => {
     await sut.handle(mockedAccount)
 
     expect(spy).toBeCalledWith(mockedAccount)
+  })
+  test('should return server rror http error if addAccount fails ', async () => {
+    const { sut, addAccount } = makeSut()
+    addAccount.mockAddAccount(error('any-error'))
+
+    const response = await sut.handle(mockRegisterAccount())
+
+    expect(response).toEqual(HttpResponse.serverError('unexpected error'))
   })
 })
