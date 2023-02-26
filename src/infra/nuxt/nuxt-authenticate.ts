@@ -31,7 +31,7 @@ export class NuxtAuthenticate implements Authenticate {
   ): Promise<Result<Session, string>> {
     const response = await adaptLazyFetchToResult('/api/logon', {
       method: 'post',
-      params: {
+      body: {
         username,
         password
       }

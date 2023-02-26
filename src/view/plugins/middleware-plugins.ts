@@ -1,17 +1,13 @@
-import {
-  addRouteMiddleware,
-  defineNuxtRouteMiddleware,
-  useCookie
-} from 'nuxt/app'
+import { addRouteMiddleware, defineNuxtPlugin, useCookie } from 'nuxt/app'
 
-const isAuthenticated = () => {
-  const accessToken = useCookie('x-access-token')
-  return accessToken.value !== undefined
-}
+export default defineNuxtPlugin(() => {
+  const isAuthenticated = () => {
+    const accessToken = useCookie('x-access-token')
+    return accessToken.value !== undefined
+  }
 
-const publicPages = ['/login', '/sign-up', '/']
+  const publicPages = ['/login', '/sign-up', '/']
 
-export default defineNuxtRouteMiddleware(() => {
   addRouteMiddleware(
     'only-authenticated',
     ({ path }) =>
