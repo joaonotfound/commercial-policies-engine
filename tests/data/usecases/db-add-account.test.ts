@@ -26,6 +26,15 @@ class MockFindAccountByEmail implements FindAccountsByEmail {
   }
 }
 export class MockAddAccountRepository implements AddAccountRepository {
+  mockAddAccountError(error: string) {
+    jest
+      .spyOn(this as AddAccountRepository, 'addAccount')
+      // eslint-disable-next-line require-await
+      .mockImplementationOnce(async () => {
+        throw error
+      })
+  }
+
   mockAddAccountCall(response: boolean) {
     jest
       .spyOn(this as AddAccountRepository, 'addAccount')
@@ -49,25 +58,29 @@ export class DatabaseAddAccount {
   async addAccount(
     account: RegisterAccount
   ): Promise<Result<PublicAccount, string>> {
-    const [existentUsername] =
-      await this.findAccountByUsername.findAccountByUsername(account.username)
-    if (existentUsername !== undefined) {
-      return error('username already in use.')
+    try {
+      const [existentUsername] =
+        await this.findAccountByUsername.findAccountByUsername(account.username)
+      if (existentUsername !== undefined) {
+        return error('username already in use.')
+      }
+      const existentEmail = await this.findAccountByEmail.findAccountByEmail(
+        account.email
+      )
+      if (existentEmail !== null) {
+        return error('email already in use.')
+      }
+      const hashedPassword = await this.hash.generateHash(account.password)
+      await this.addAcccountRepository.addAccount({
+        ...account,
+        password: hashedPassword
+      })
+      return ok({
+        username: account.username
+      })
+    } catch {
+      return error('unexpected error')
     }
-    const existentEmail = await this.findAccountByEmail.findAccountByEmail(
-      account.email
-    )
-    if (existentEmail !== null) {
-      return error('email already in use.')
-    }
-    const hashedPassword = await this.hash.generateHash(account.password)
-    await this.addAcccountRepository.addAccount({
-      ...account,
-      password: hashedPassword
-    })
-    return ok({
-      username: account.username
-    })
   }
 }
 
@@ -153,5 +166,13 @@ describe('DatabaseAddAccount', () => {
     expect(spy).toBeCalledWith(
       Object.assign({ ...mockedAccount, password: hashedPassword })
     )
+  })
+  test('should return unexpected error if method throws', async () => {
+    const { sut, addAccountRepository } = makeSut()
+    addAccountRepository.mockAddAccountError('random-error')
+
+    const response = await sut.addAccount(mockRegisterAccount())
+
+    expect(response).toEqual(error('unexpected error'))
   })
 })
