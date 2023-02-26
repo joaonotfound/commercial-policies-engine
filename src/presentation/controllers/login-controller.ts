@@ -1,11 +1,13 @@
 import { Controller, HttpResponse } from '../protocols'
-import { AuthenticationUsecase } from '@/domain'
+import { AuthenticationUsecase, Session } from '@/domain'
 
 export class LoginController implements Controller {
   // eslint-disable-next-line no-useless-constructor
   constructor(private readonly authentication: AuthenticationUsecase) {}
 
-  async handle(request: LoginController.Request): Promise<HttpResponse<any>> {
+  async handle(
+    request: LoginController.Request
+  ): Promise<HttpResponse<Session>> {
     const validSchema = this.isValidSchema(request)
     if (!validSchema) return HttpResponse.badRequest('Missing credentials')
 
