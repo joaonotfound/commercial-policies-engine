@@ -1,7 +1,13 @@
-import { MockFindAccountByUsername } from '../mocks'
+import { MockFindAccountByUsername, MockHasher } from '../mocks'
 import { Account, PublicAccount, RegisterAccount, Result } from '@/domain'
 import { mockAccount, mockRegisterAccount } from '@/tests/domain'
-import { ok, error, FindAccountByUsername, AddAccountRepository } from '@/data'
+import {
+  ok,
+  error,
+  FindAccountByUsername,
+  AddAccountRepository,
+  Hasher
+} from '@/data'
 
 interface FindAccountsByEmail {
   findAccountByEmail(email: string): Promise<Account | null>
@@ -36,7 +42,8 @@ export class DatabaseAddAccount {
   constructor(
     private readonly findAccountByUsername: FindAccountByUsername,
     private readonly findAccountByEmail: FindAccountsByEmail,
-    private readonly addAcccountRepository: AddAccountRepository
+    private readonly addAcccountRepository: AddAccountRepository,
+    private readonly hash: Hasher
   ) {}
 
   async addAccount(
@@ -53,6 +60,7 @@ export class DatabaseAddAccount {
     if (existentEmail !== null) {
       return error('email already in use.')
     }
+    await this.hash.generateHash(account.password)
     await this.addAcccountRepository.addAccount(account)
     return ok({
       username: account.username
@@ -64,12 +72,14 @@ const makeSut = () => {
   const findAccountByUsername = new MockFindAccountByUsername()
   const findAccountByEmail = new MockFindAccountByEmail()
   const addAccountRepository = new MockAddAccountRepository()
+  const hash = new MockHasher()
   const sut = new DatabaseAddAccount(
     findAccountByUsername,
     findAccountByEmail,
-    addAccountRepository
+    addAccountRepository,
+    hash
   )
-  return { sut, findAccountByUsername, addAccountRepository }
+  return { sut, findAccountByUsername, addAccountRepository, hash }
 }
 
 describe('DatabaseAddAccount', () => {
@@ -118,5 +128,14 @@ describe('DatabaseAddAccount', () => {
     await sut.addAccount(mockedAccount)
 
     expect(spy).toBeCalled()
+  })
+  test('should hash password', async () => {
+    const { sut, hash } = makeSut()
+    const spy = jest.spyOn(hash, 'generateHash')
+    const mockedAccount = mockRegisterAccount()
+
+    await sut.addAccount(mockedAccount)
+
+    expect(spy).toBeCalledWith(mockedAccount.password)
   })
 })
