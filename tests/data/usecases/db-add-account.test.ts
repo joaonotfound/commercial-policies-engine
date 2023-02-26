@@ -60,8 +60,11 @@ export class DatabaseAddAccount {
     if (existentEmail !== null) {
       return error('email already in use.')
     }
-    await this.hash.generateHash(account.password)
-    await this.addAcccountRepository.addAccount(account)
+    const hashedPassword = await this.hash.generateHash(account.password)
+    await this.addAcccountRepository.addAccount({
+      ...account,
+      password: hashedPassword
+    })
     return ok({
       username: account.username
     })
@@ -137,5 +140,18 @@ describe('DatabaseAddAccount', () => {
     await sut.addAccount(mockedAccount)
 
     expect(spy).toBeCalledWith(mockedAccount.password)
+  })
+  test('should call add account method with correct values', async () => {
+    const { sut, addAccountRepository, hash } = makeSut()
+    const hashedPassword = 'hashed-password'
+    hash.mockGenerateHash(hashedPassword)
+    const spy = jest.spyOn(addAccountRepository, 'addAccount')
+    const mockedAccount = mockRegisterAccount()
+
+    await sut.addAccount(mockedAccount)
+
+    expect(spy).toBeCalledWith(
+      Object.assign({ ...mockedAccount, password: hashedPassword })
+    )
   })
 })
