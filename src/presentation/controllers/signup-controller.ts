@@ -23,11 +23,9 @@ export class SignupController implements HttpController<Session, string> {
       }
       const added = await this.addAccount.addAccount(data)
       if (!added.ok) {
-        console.log(
-          'an error ocurred while adding an account to an user. Error:',
-          added.error
-        )
-        return HttpResponse.serverError('unexpected error')
+        return added.error.error === 'conflict'
+          ? HttpResponse.conflict(added.error.message)
+          : HttpResponse.serverError('unexpected error')
       }
       const accessToken = await this.tokenGenerator.generateAccessToken(
         added.value

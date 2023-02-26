@@ -48,13 +48,22 @@ describe('SignupController', () => {
 
     expect(spy).toBeCalledWith(mockedAccount)
   })
-  test('should return server error http error if addAccount returns generic error ', async () => {
+  test('should return server error http error if addAccount returns generic error', async () => {
     const { sut, addAccount } = makeSut()
     addAccount.mockAddAccount(error(createLevelError('generic', 'any-error')))
 
     const response = await sut.handle(mockRegisterAccount())
 
     expect(response).toEqual(HttpResponse.serverError('unexpected error'))
+  })
+  test('should return error 409 if addAccount returns conflict nerror ', async () => {
+    const { sut, addAccount } = makeSut()
+    const conflictError = createLevelError('conflict', 'any-error')
+    addAccount.mockAddAccount(error(conflictError))
+
+    const response = await sut.handle(mockRegisterAccount())
+
+    expect(response).toEqual(HttpResponse.conflict(conflictError.message))
   })
   test('should call token generator with correct values', async () => {
     const { sut, generateAccessToken } = makeSut()
