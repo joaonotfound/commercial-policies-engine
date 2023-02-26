@@ -6,7 +6,7 @@ import {
   Result,
   Session
 } from '@/domain'
-import { Controller, HttpResponse } from '@/presentation'
+import { HttpController, HttpResponse } from '@/presentation'
 import { mockRegisterAccount } from '@/tests/domain'
 import { MockGenerateAccessToken } from '@/tests/data'
 
@@ -51,7 +51,7 @@ class MockAddAccount implements AddAccountUsecase {
     })
   }
 }
-class SignupController implements Controller {
+class SignupController implements HttpController<Session, string> {
   // eslint-disable-next-line no-useless-constructor
   constructor(
     private readonly validateRegisterAccountSchema: ValidateRegisterAccountSchema,
@@ -59,9 +59,7 @@ class SignupController implements Controller {
     private readonly tokenGenerator: GenerateAccessToken
   ) {}
 
-  async handle(
-    data: unknown | RegisterAccount
-  ): Promise<HttpResponse<Session, string>> {
+  async handle(data: unknown) {
     const isValidSchema =
       this.validateRegisterAccountSchema.validateRegisterAccountSchema(data)
     if (!isValidSchema) {
