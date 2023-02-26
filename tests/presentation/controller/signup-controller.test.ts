@@ -3,7 +3,8 @@ import {
   AddAccountUsecase,
   PublicAccount,
   RegisterAccount,
-  Result
+  Result,
+  Session
 } from '@/domain'
 import { Controller, HttpResponse } from '@/presentation'
 import { mockRegisterAccount } from '@/tests/domain'
@@ -58,7 +59,9 @@ class SignupController implements Controller {
     private readonly tokenGenerator: GenerateAccessToken
   ) {}
 
-  async handle(data: unknown | RegisterAccount): Promise<HttpResponse<any>> {
+  async handle(
+    data: unknown | RegisterAccount
+  ): Promise<HttpResponse<Session, string>> {
     const isValidSchema =
       this.validateRegisterAccountSchema.validateRegisterAccountSchema(data)
     if (!isValidSchema) {
@@ -68,8 +71,12 @@ class SignupController implements Controller {
     if (!added.ok) {
       return HttpResponse.serverError('unexpected error')
     }
-    await this.tokenGenerator.generateAccessToken(added.value)
-    return HttpResponse.authorize('')
+    const accessToken = await this.tokenGenerator.generateAccessToken(
+      added.value
+    )
+    return HttpResponse.authorize({
+      accessToken
+    })
   }
 }
 
@@ -140,5 +147,18 @@ describe('SignupController', () => {
     await sut.handle(mockedAccount)
 
     expect(spy).toBeCalledWith({ username: mockedAccount.username })
+  })
+  test('should return access token', async () => {
+    const { sut, generateAccessToken } = makeSut()
+    generateAccessToken.mockGenerateAccessToken('valid-token')
+    const mockedAccount = mockRegisterAccount()
+
+    const response = await sut.handle(mockedAccount)
+
+    expect(response).toEqual(
+      HttpResponse.authorize<Session>({
+        accessToken: 'valid-token'
+      })
+    )
   })
 })
