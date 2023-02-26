@@ -12,6 +12,15 @@ class MockValidateRegisterAccountSchema
   validateRegisterAccountSchema(_: unknown): _ is RegisterAccount {
     return true
   }
+
+  mockValidateRegisterAccountSchemaCall(response: boolean) {
+    jest
+      .spyOn(
+        this as ValidateRegisterAccountSchema,
+        'validateRegisterAccountSchema'
+      )
+      .mockReturnValueOnce(response)
+  }
 }
 
 class SignupController implements Controller {
@@ -22,7 +31,11 @@ class SignupController implements Controller {
 
   // eslint-disable-next-line require-await
   async handle(data: unknown | RegisterAccount): Promise<HttpResponse<any>> {
-    this.validateRegisterAccountSchema.validateRegisterAccountSchema(data)
+    const isValidSchema =
+      this.validateRegisterAccountSchema.validateRegisterAccountSchema(data)
+    if (!isValidSchema) {
+      return HttpResponse.badRequest('missing params')
+    }
     return HttpResponse.authorize('')
   }
 }
@@ -52,5 +65,13 @@ describe('SignupController', () => {
     sut.handle(mockedAccount)
 
     expect(spy).toHaveBeenCalledWith(mockedAccount)
+  })
+  test('should return badRequest when validating schema fails', async () => {
+    const { sut, validateSchema } = makeSut()
+    validateSchema.mockValidateRegisterAccountSchemaCall(false)
+
+    const response = await sut.handle(mockRegisterAccount())
+
+    expect(response).toEqual(HttpResponse.badRequest('missing params'))
   })
 })
