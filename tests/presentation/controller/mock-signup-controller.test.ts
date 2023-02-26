@@ -1,4 +1,11 @@
-import { RegisterAccount } from '@/domain'
+import { faker } from '@faker-js/faker'
+import { ok } from '@/data'
+import {
+  AddAccountUsecase,
+  PublicAccount,
+  RegisterAccount,
+  Result
+} from '@/domain'
 import { Controller, HttpResponse } from '@/presentation'
 import { mockRegisterAccount } from '@/tests/domain'
 
@@ -13,29 +20,52 @@ class MockValidateRegisterAccountSchema
     return true
   }
 
+  getSpy() {
+    return jest.spyOn(
+      this as ValidateRegisterAccountSchema,
+      'validateRegisterAccountSchema'
+    )
+  }
+
   mockValidateRegisterAccountSchemaCall(response: boolean) {
-    jest
-      .spyOn(
-        this as ValidateRegisterAccountSchema,
-        'validateRegisterAccountSchema'
-      )
-      .mockReturnValueOnce(response)
+    this.getSpy().mockReturnValueOnce(response)
   }
 }
 
+const mockPublicAccount = (): PublicAccount => {
+  return {
+    username: faker.internet.userName()
+  }
+}
+class MockAddAccount implements AddAccountUsecase {
+  mockAddAccount(response: Result<PublicAccount, string>) {
+    this.getSpy().mockResolvedValueOnce(response)
+  }
+
+  getSpy() {
+    return jest.spyOn(this as AddAccountUsecase, 'addAccount')
+  }
+
+  // eslint-disable-next-line require-await
+  async addAccount(_: RegisterAccount): Promise<Result<PublicAccount, string>> {
+    return ok(mockPublicAccount())
+  }
+}
 class SignupController implements Controller {
   // eslint-disable-next-line no-useless-constructor
   constructor(
-    private readonly validateRegisterAccountSchema: ValidateRegisterAccountSchema
+    private readonly validateRegisterAccountSchema: ValidateRegisterAccountSchema,
+    private readonly addAccount: AddAccountUsecase
   ) {}
 
-  // eslint-disable-next-line require-await
+   
   async handle(data: unknown | RegisterAccount): Promise<HttpResponse<any>> {
     const isValidSchema =
       this.validateRegisterAccountSchema.validateRegisterAccountSchema(data)
     if (!isValidSchema) {
       return HttpResponse.badRequest('missing params')
     }
+    await this.addAccount.addAccount(data)
     return HttpResponse.authorize('')
   }
 }
@@ -50,10 +80,12 @@ class SignupController implements Controller {
 
 const makeSut = () => {
   const validateSchema = new MockValidateRegisterAccountSchema()
-  const sut = new SignupController(validateSchema)
+  const addAccount = new MockAddAccount()
+  const sut = new SignupController(validateSchema, addAccount)
   return {
     sut,
-    validateSchema
+    validateSchema,
+    addAccount
   }
 }
 describe('SignupController', () => {
@@ -73,5 +105,14 @@ describe('SignupController', () => {
     const response = await sut.handle(mockRegisterAccount())
 
     expect(response).toEqual(HttpResponse.badRequest('missing params'))
+  })
+  test('should call add account with correct values', async () => {
+    const { sut, addAccount } = makeSut()
+    const spy = addAccount.getSpy()
+    const mockedAccount = mockRegisterAccount()
+
+    await sut.handle(mockedAccount)
+
+    expect(spy).toBeCalledWith(mockedAccount)
   })
 })
