@@ -5,9 +5,14 @@ import {
   FindAccountsByEmail,
   Hasher
 } from '../protocols'
-import { PublicAccount, RegisterAccount, Result } from '@/domain'
+import {
+  AddAccountUsecase,
+  PublicAccount,
+  RegisterAccount,
+  Result
+} from '@/domain'
 
-export class DatabaseAddAccount {
+export class DatabaseAddAccount implements AddAccountUsecase {
   // eslint-disable-next-line no-useless-constructor
   constructor(
     private readonly findAccountByUsername: FindAccountByUsername,
