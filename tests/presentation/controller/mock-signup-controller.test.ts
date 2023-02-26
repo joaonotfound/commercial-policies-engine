@@ -1,5 +1,4 @@
-import { faker } from '@faker-js/faker'
-import { error, ok } from '@/data'
+import { error, GenerateAccessToken, ok } from '@/data'
 import {
   AddAccountUsecase,
   PublicAccount,
@@ -8,6 +7,7 @@ import {
 } from '@/domain'
 import { Controller, HttpResponse } from '@/presentation'
 import { mockRegisterAccount } from '@/tests/domain'
+import { MockGenerateAccessToken } from '@/tests/data'
 
 interface ValidateRegisterAccountSchema {
   validateRegisterAccountSchema(account: unknown): account is RegisterAccount
@@ -32,11 +32,6 @@ class MockValidateRegisterAccountSchema
   }
 }
 
-const mockPublicAccount = (): PublicAccount => {
-  return {
-    username: faker.internet.userName()
-  }
-}
 class MockAddAccount implements AddAccountUsecase {
   mockAddAccount(response: Result<PublicAccount, string>) {
     this.getSpy().mockResolvedValueOnce(response)
@@ -47,15 +42,20 @@ class MockAddAccount implements AddAccountUsecase {
   }
 
   // eslint-disable-next-line require-await
-  async addAccount(_: RegisterAccount): Promise<Result<PublicAccount, string>> {
-    return ok(mockPublicAccount())
+  async addAccount(
+    data: RegisterAccount
+  ): Promise<Result<PublicAccount, string>> {
+    return ok({
+      username: data.username
+    })
   }
 }
 class SignupController implements Controller {
   // eslint-disable-next-line no-useless-constructor
   constructor(
     private readonly validateRegisterAccountSchema: ValidateRegisterAccountSchema,
-    private readonly addAccount: AddAccountUsecase
+    private readonly addAccount: AddAccountUsecase,
+    private readonly tokenGenerator: GenerateAccessToken
   ) {}
 
   async handle(data: unknown | RegisterAccount): Promise<HttpResponse<any>> {
@@ -68,6 +68,7 @@ class SignupController implements Controller {
     if (!added.ok) {
       return HttpResponse.serverError('unexpected error')
     }
+    await this.tokenGenerator.generateAccessToken(added.value)
     return HttpResponse.authorize('')
   }
 }
@@ -83,11 +84,17 @@ class SignupController implements Controller {
 const makeSut = () => {
   const validateSchema = new MockValidateRegisterAccountSchema()
   const addAccount = new MockAddAccount()
-  const sut = new SignupController(validateSchema, addAccount)
+  const generateAccessToken = new MockGenerateAccessToken()
+  const sut = new SignupController(
+    validateSchema,
+    addAccount,
+    generateAccessToken
+  )
   return {
     sut,
     validateSchema,
-    addAccount
+    addAccount,
+    generateAccessToken
   }
 }
 describe('SignupController', () => {
@@ -117,12 +124,21 @@ describe('SignupController', () => {
 
     expect(spy).toBeCalledWith(mockedAccount)
   })
-  test('should return server rror http error if addAccount fails ', async () => {
+  test('should return server error http error if addAccount fails ', async () => {
     const { sut, addAccount } = makeSut()
     addAccount.mockAddAccount(error('any-error'))
 
     const response = await sut.handle(mockRegisterAccount())
 
     expect(response).toEqual(HttpResponse.serverError('unexpected error'))
+  })
+  test('should call token generator with correct values', async () => {
+    const { sut, generateAccessToken } = makeSut()
+    const spy = generateAccessToken.getSpy()
+    const mockedAccount = mockRegisterAccount()
+
+    await sut.handle(mockedAccount)
+
+    expect(spy).toBeCalledWith({ username: mockedAccount.username })
   })
 })
