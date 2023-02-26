@@ -1,90 +1,9 @@
-import { error, GenerateAccessToken, ok } from '@/data'
-import {
-  AddAccountUsecase,
-  PublicAccount,
-  RegisterAccount,
-  Result,
-  Session
-} from '@/domain'
-import { HttpController, HttpResponse } from '@/presentation'
+import { MockValidateRegisterAccountSchema } from '../mocks'
+import { error } from '@/data'
+import { Session } from '@/domain'
+import { HttpResponse, SignupController } from '@/presentation'
 import { mockRegisterAccount } from '@/tests/domain'
-import { MockGenerateAccessToken } from '@/tests/data'
-
-interface ValidateRegisterAccountSchema {
-  validateRegisterAccountSchema(account: unknown): account is RegisterAccount
-}
-
-class MockValidateRegisterAccountSchema
-  implements ValidateRegisterAccountSchema
-{
-  validateRegisterAccountSchema(_: unknown): _ is RegisterAccount {
-    return true
-  }
-
-  getSpy() {
-    return jest.spyOn(
-      this as ValidateRegisterAccountSchema,
-      'validateRegisterAccountSchema'
-    )
-  }
-
-  mockValidateRegisterAccountSchemaCall(response: boolean) {
-    this.getSpy().mockReturnValueOnce(response)
-  }
-}
-
-class MockAddAccount implements AddAccountUsecase {
-  mockAddAccount(response: Result<PublicAccount, string>) {
-    this.getSpy().mockResolvedValueOnce(response)
-  }
-
-  getSpy() {
-    return jest.spyOn(this as AddAccountUsecase, 'addAccount')
-  }
-
-  // eslint-disable-next-line require-await
-  async addAccount(
-    data: RegisterAccount
-  ): Promise<Result<PublicAccount, string>> {
-    return ok({
-      username: data.username
-    })
-  }
-}
-class SignupController implements HttpController<Session, string> {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(
-    private readonly validateRegisterAccountSchema: ValidateRegisterAccountSchema,
-    private readonly addAccount: AddAccountUsecase,
-    private readonly tokenGenerator: GenerateAccessToken
-  ) {}
-
-  async handle(data: unknown) {
-    const isValidSchema =
-      this.validateRegisterAccountSchema.validateRegisterAccountSchema(data)
-    if (!isValidSchema) {
-      return HttpResponse.badRequest('missing params')
-    }
-    const added = await this.addAccount.addAccount(data)
-    if (!added.ok) {
-      return HttpResponse.serverError('unexpected error')
-    }
-    const accessToken = await this.tokenGenerator.generateAccessToken(
-      added.value
-    )
-    return HttpResponse.authorize({
-      accessToken
-    })
-  }
-}
-
-/*
-    success case:
-        -   validate the schema
-        -   add account on database
-        -   return session
-
-*/
+import { MockAddAccount, MockGenerateAccessToken } from '@/tests/data'
 
 const makeSut = () => {
   const validateSchema = new MockValidateRegisterAccountSchema()
