@@ -1,5 +1,6 @@
 import {
   AddAccountUsecase,
+  ErrorLevel,
   PublicAccount,
   RegisterAccount,
   Result
@@ -7,7 +8,7 @@ import {
 import { ok } from '@/data'
 
 export class MockAddAccount implements AddAccountUsecase {
-  mockAddAccount(response: Result<PublicAccount, string>) {
+  mockAddAccount(response: Result<PublicAccount, ErrorLevel>) {
     this.getSpy().mockResolvedValueOnce(response)
   }
 
@@ -16,9 +17,7 @@ export class MockAddAccount implements AddAccountUsecase {
   }
 
   // eslint-disable-next-line require-await
-  async addAccount(
-    data: RegisterAccount
-  ): Promise<Result<PublicAccount, string>> {
+  async addAccount(data: RegisterAccount) {
     return ok({
       username: data.username
     })

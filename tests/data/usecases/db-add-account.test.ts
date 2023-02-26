@@ -6,7 +6,7 @@ import {
 } from '../mocks'
 import { PublicAccount } from '@/domain'
 import { mockAccount, mockRegisterAccount } from '@/tests/domain'
-import { ok, error, DatabaseAddAccount } from '@/data'
+import { ok, error, DatabaseAddAccount, createLevelError } from '@/data'
 
 const makeSut = () => {
   const findAccountByUsername = new MockFindAccountByUsername()
@@ -29,7 +29,9 @@ describe('DatabaseAddAccount', () => {
 
     const response = await sut.addAccount(mockRegisterAccount())
 
-    expect(response).toEqual(error('username already in use.'))
+    expect(response).toEqual(
+      error(createLevelError('conflict', 'username already in use'))
+    )
   })
 
   test('should return public account.', async () => {
@@ -97,7 +99,9 @@ describe('DatabaseAddAccount', () => {
 
     const response = await sut.addAccount(mockRegisterAccount())
 
-    expect(response).toEqual(error('unexpected error'))
+    expect(response).toEqual(
+      error(createLevelError('generic', 'unexpected error'))
+    )
   })
   test('should return unexpected error if add account returns false', async () => {
     const { sut, addAccountRepository } = makeSut()
@@ -105,6 +109,8 @@ describe('DatabaseAddAccount', () => {
 
     const response = await sut.addAccount(mockRegisterAccount())
 
-    expect(response).toEqual(error('unexpected error'))
+    expect(response).toEqual(
+      error(createLevelError('generic', 'unexpected error'))
+    )
   })
 })

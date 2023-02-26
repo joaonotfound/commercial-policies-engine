@@ -1,5 +1,5 @@
 import { MockValidateRegisterAccountSchema } from '../mocks'
-import { error } from '@/data'
+import { createLevelError, error } from '@/data'
 import { Session } from '@/domain'
 import { HttpResponse, SignupController } from '@/presentation'
 import { mockRegisterAccount } from '@/tests/domain'
@@ -48,9 +48,9 @@ describe('SignupController', () => {
 
     expect(spy).toBeCalledWith(mockedAccount)
   })
-  test('should return server error http error if addAccount fails ', async () => {
+  test('should return server error http error if addAccount returns generic error ', async () => {
     const { sut, addAccount } = makeSut()
-    addAccount.mockAddAccount(error('any-error'))
+    addAccount.mockAddAccount(error(createLevelError('generic', 'any-error')))
 
     const response = await sut.handle(mockRegisterAccount())
 

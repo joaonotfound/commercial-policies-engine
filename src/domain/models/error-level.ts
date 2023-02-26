@@ -1,4 +1,4 @@
-export type ErrorLevel<T extends string = string> = {
-  error: T
+export type ErrorLevel = {
+  error: string
   message: string
 }

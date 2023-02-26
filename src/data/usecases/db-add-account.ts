@@ -1,16 +1,11 @@
-import { error, ok } from '../helpers'
+import { createLevelError, error, ok } from '../helpers'
 import {
   AddAccountRepository,
   FindAccountByUsername,
   FindAccountsByEmail,
   Hasher
 } from '../protocols'
-import {
-  AddAccountUsecase,
-  PublicAccount,
-  RegisterAccount,
-  Result
-} from '@/domain'
+import { AddAccountUsecase, RegisterAccount } from '@/domain'
 
 export class DatabaseAddAccount implements AddAccountUsecase {
   // eslint-disable-next-line no-useless-constructor
@@ -21,33 +16,47 @@ export class DatabaseAddAccount implements AddAccountUsecase {
     private readonly hash: Hasher
   ) {}
 
-  async addAccount(
-    account: RegisterAccount
-  ): Promise<Result<PublicAccount, string>> {
+  private async findConflictFields(account: RegisterAccount) {
+    const [existingUsername] =
+      await this.findAccountByUsername.findAccountByUsername(account.username)
+    if (existingUsername) {
+      return DatabaseAddAccount.usernameConflict
+    }
+
+    const existingEmail = await this.findAccountByEmail.findAccountByEmail(
+      account.email
+    )
+    if (existingEmail) {
+      return DatabaseAddAccount.emailConflict
+    }
+  }
+
+  async addAccount(account: RegisterAccount) {
+    const conflictField = await this.findConflictFields(account)
+    if (conflictField) return conflictField
+
     try {
-      const [existentUsername] =
-        await this.findAccountByUsername.findAccountByUsername(account.username)
-      if (existentUsername !== undefined) {
-        return error('username already in use.')
-      }
-      const existentEmail = await this.findAccountByEmail.findAccountByEmail(
-        account.email
-      )
-      if (existentEmail !== null) {
-        return error('email already in use.')
-      }
       const hashedPassword = await this.hash.generateHash(account.password)
       const accountWasAdded = await this.addAcccountRepository.addAccount({
         ...account,
         password: hashedPassword
       })
       return accountWasAdded
-        ? ok({
-            username: account.username
-          })
-        : error('unexpected error')
+        ? ok({ username: account.username })
+        : DatabaseAddAccount.unexpectedError
     } catch {
-      return error('unexpected error')
+      return DatabaseAddAccount.unexpectedError
     }
   }
+}
+
+export namespace DatabaseAddAccount {
+  const generic = (message: string) =>
+    error(createLevelError('generic', message))
+  const conflict = (message: string) =>
+    error(createLevelError('conflict', message))
+
+  export const usernameConflict = conflict('username already in use')
+  export const emailConflict = conflict('email already exists')
+  export const unexpectedError = generic('unexpected error')
 }
