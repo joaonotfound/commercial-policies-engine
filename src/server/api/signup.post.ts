@@ -1,5 +1,5 @@
 import { defineEventHandler } from 'h3'
-import { adaptHttp, makeSignupController } from '../../main'
+import { adaptHttp, makeSignupController } from '@/main'
 
 const controller = makeSignupController()
 
