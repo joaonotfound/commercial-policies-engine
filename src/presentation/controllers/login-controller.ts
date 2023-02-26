@@ -17,6 +17,8 @@ export class LoginController implements Controller {
   }
 
   isValidSchema(request: LoginController.Request): boolean {
+    if (!request) return false
+
     if (!request.username || !request.password) {
       return false
     }
