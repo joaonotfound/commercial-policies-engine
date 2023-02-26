@@ -1,90 +1,12 @@
-import { MockFindAccountByUsername, MockHasher } from '../mocks'
-import { Account, PublicAccount, RegisterAccount, Result } from '@/domain'
-import { mockAccount, mockRegisterAccount } from '@/tests/domain'
 import {
-  ok,
-  error,
-  FindAccountByUsername,
-  AddAccountRepository,
-  Hasher
-} from '@/data'
-
-interface FindAccountsByEmail {
-  findAccountByEmail(email: string): Promise<Account | null>
-}
-
-class MockFindAccountByEmail implements FindAccountsByEmail {
-  mockFindAccountByEmailCall(response: Account | null) {
-    jest
-      .spyOn(this as FindAccountsByEmail, 'findAccountByEmail')
-      .mockResolvedValueOnce(response)
-  }
-
-  // eslint-disable-next-line require-await
-  async findAccountByEmail(_: string): Promise<Account | null> {
-    return null
-  }
-}
-export class MockAddAccountRepository implements AddAccountRepository {
-  mockAddAccountError(error: string) {
-    jest
-      .spyOn(this as AddAccountRepository, 'addAccount')
-      // eslint-disable-next-line require-await
-      .mockImplementationOnce(async () => {
-        throw error
-      })
-  }
-
-  mockAddAccountCall(response: boolean) {
-    jest
-      .spyOn(this as AddAccountRepository, 'addAccount')
-      .mockResolvedValueOnce(response)
-  }
-
-  // eslint-disable-next-line require-await
-  async addAccount(_: RegisterAccount): Promise<boolean> {
-    return true
-  }
-}
-export class DatabaseAddAccount {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(
-    private readonly findAccountByUsername: FindAccountByUsername,
-    private readonly findAccountByEmail: FindAccountsByEmail,
-    private readonly addAcccountRepository: AddAccountRepository,
-    private readonly hash: Hasher
-  ) {}
-
-  async addAccount(
-    account: RegisterAccount
-  ): Promise<Result<PublicAccount, string>> {
-    try {
-      const [existentUsername] =
-        await this.findAccountByUsername.findAccountByUsername(account.username)
-      if (existentUsername !== undefined) {
-        return error('username already in use.')
-      }
-      const existentEmail = await this.findAccountByEmail.findAccountByEmail(
-        account.email
-      )
-      if (existentEmail !== null) {
-        return error('email already in use.')
-      }
-      const hashedPassword = await this.hash.generateHash(account.password)
-      const accountWasAdded = await this.addAcccountRepository.addAccount({
-        ...account,
-        password: hashedPassword
-      })
-      return accountWasAdded
-        ? ok({
-            username: account.username
-          })
-        : error('unexpected error')
-    } catch {
-      return error('unexpected error')
-    }
-  }
-}
+  MockAddAccountRepository,
+  MockFindAccountByEmail,
+  MockFindAccountByUsername,
+  MockHasher
+} from '../mocks'
+import { PublicAccount } from '@/domain'
+import { mockAccount, mockRegisterAccount } from '@/tests/domain'
+import { ok, error, DatabaseAddAccount } from '@/data'
 
 const makeSut = () => {
   const findAccountByUsername = new MockFindAccountByUsername()
