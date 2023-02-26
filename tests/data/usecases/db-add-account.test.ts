@@ -71,13 +71,15 @@ export class DatabaseAddAccount {
         return error('email already in use.')
       }
       const hashedPassword = await this.hash.generateHash(account.password)
-      await this.addAcccountRepository.addAccount({
+      const accountWasAdded = await this.addAcccountRepository.addAccount({
         ...account,
         password: hashedPassword
       })
-      return ok({
-        username: account.username
-      })
+      return accountWasAdded
+        ? ok({
+            username: account.username
+          })
+        : error('unexpected error')
     } catch {
       return error('unexpected error')
     }
@@ -170,6 +172,14 @@ describe('DatabaseAddAccount', () => {
   test('should return unexpected error if method throws', async () => {
     const { sut, addAccountRepository } = makeSut()
     addAccountRepository.mockAddAccountError('random-error')
+
+    const response = await sut.addAccount(mockRegisterAccount())
+
+    expect(response).toEqual(error('unexpected error'))
+  })
+  test('should return unexpected error if add account returns false', async () => {
+    const { sut, addAccountRepository } = makeSut()
+    addAccountRepository.mockAddAccountCall(false)
 
     const response = await sut.addAccount(mockRegisterAccount())
 
