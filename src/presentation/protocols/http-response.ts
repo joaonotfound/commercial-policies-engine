@@ -1,3 +1,11 @@
+type ConflictResponse = {
+  status: 409
+  body: {
+    field: string
+    error: string
+  }
+}
+
 export type HttpResponse<T = any, E = any> =
   | {
       status: 200
@@ -7,6 +15,7 @@ export type HttpResponse<T = any, E = any> =
       status: 401 | 400 | 500
       body: E
     }
+  | ConflictResponse
 
 const createResponseHelper =
   <N>(status: N) =>
@@ -20,4 +29,11 @@ export namespace HttpResponse {
   export const unauthorize = createResponseHelper<401>(401)
   export const badRequest = createResponseHelper<400>(400)
   export const serverError = createResponseHelper<500>(500)
+  export const conflict = (field: string, error: string): ConflictResponse => ({
+    status: 409,
+    body: {
+      field,
+      error
+    }
+  })
 }
