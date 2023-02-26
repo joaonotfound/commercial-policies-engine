@@ -1,19 +1,44 @@
 import { MockFindAccountByUsername } from '../mocks'
-import { PublicAccount, RegisterAccount, Result } from '@/domain'
+import { Account, PublicAccount, RegisterAccount, Result } from '@/domain'
 import { mockAccount, mockRegisterAccount } from '@/tests/domain'
 import { ok, error, FindAccountByUsername } from '@/data'
 
+interface FindAccountsByEmail {
+  findAccountByEmail(email: string): Promise<Account | null>
+}
+
+class MockFindAccountByEmail implements FindAccountsByEmail {
+  mockFindAccountByEmailCall(response: Account | null) {
+    jest
+      .spyOn(this as FindAccountsByEmail, 'findAccountByEmail')
+      .mockResolvedValueOnce(response)
+  }
+
+  // eslint-disable-next-line require-await
+  async findAccountByEmail(_: string): Promise<Account | null> {
+    return null
+  }
+}
 export class DatabaseAddAccount {
   // eslint-disable-next-line no-useless-constructor
-  constructor(private readonly findAccountByUsername: FindAccountByUsername) {}
+  constructor(
+    private readonly findAccountByUsername: FindAccountByUsername,
+    private readonly findAccountByEmail: FindAccountsByEmail
+  ) {}
 
   async addAccount(
     account: RegisterAccount
   ): Promise<Result<PublicAccount, string>> {
-    const [existentAccount] =
+    const [existentUsername] =
       await this.findAccountByUsername.findAccountByUsername(account.username)
-    if (existentAccount !== undefined) {
+    if (existentUsername !== undefined) {
       return error('username already in use.')
+    }
+    const existentEmail = await this.findAccountByEmail.findAccountByEmail(
+      account.email
+    )
+    if (existentEmail !== null) {
+      return error('email already in use.')
     }
     return ok({
       username: account.username
@@ -23,7 +48,8 @@ export class DatabaseAddAccount {
 
 const makeSut = () => {
   const findAccountByUsername = new MockFindAccountByUsername()
-  const sut = new DatabaseAddAccount(findAccountByUsername)
+  const findAccountByEmail = new MockFindAccountByEmail()
+  const sut = new DatabaseAddAccount(findAccountByUsername, findAccountByEmail)
   return { sut, findAccountByUsername }
 }
 
@@ -36,6 +62,7 @@ describe('DatabaseAddAccount', () => {
 
     expect(response).toEqual(error('username already in use.'))
   })
+
   test('should return public account.', async () => {
     const { sut } = makeSut()
     const mockedAccount = mockRegisterAccount()
@@ -47,6 +74,15 @@ describe('DatabaseAddAccount', () => {
     )
   })
   test('should call find account by username', async () => {
+    const { sut, findAccountByUsername } = makeSut()
+    const spy = jest.spyOn(findAccountByUsername, 'findAccountByUsername')
+    const mockedAccount = mockRegisterAccount()
+
+    await sut.addAccount(mockedAccount)
+
+    expect(spy).toBeCalledWith(mockedAccount.username)
+  })
+  test('should call find account by email', async () => {
     const { sut, findAccountByUsername } = makeSut()
     const spy = jest.spyOn(findAccountByUsername, 'findAccountByUsername')
     const mockedAccount = mockRegisterAccount()
