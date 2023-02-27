@@ -14,8 +14,10 @@ module.exports = {
   },
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/src/view/components/**/*.vue',
-    '<rootDir>/src/view/pages/**/*.vue'
+    // '<rootDir>/src/view/components/**/*.vue',
+    // '<rootDir>/src/view/pages/**/*.vue'
+    '<rootDir>/src/**/*.vue',
+    '<rootDir>/src/**/*.ts'
   ],
   testEnvironment: 'jsdom'
 }
