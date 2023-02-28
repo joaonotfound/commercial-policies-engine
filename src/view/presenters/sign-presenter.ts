@@ -41,7 +41,7 @@ const createRef = (
       password.value != null &&
       (passwordState.value == null ||
         passwordState.value.level === 'success') &&
-      (emailState.value == null || passwordState.value?.level === 'success') &&
+      (emailState.value == null || emailState.value.level === 'success') &&
       usernameState.value == null
   )
   return {
