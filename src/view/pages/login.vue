@@ -33,6 +33,7 @@ watch(mainError, (error) => {
 
 <template>
   <div class="flex flex-col">
+    <p class="font-medium text-2xl mb-3">Login</p>
     <Transition
       enter-active-class="duration-300 ease-out"
       enter-from-class="transform opacity-0"
