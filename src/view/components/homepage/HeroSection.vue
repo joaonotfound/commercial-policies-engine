@@ -5,19 +5,21 @@
     <div
       class="p-12 w-[60rem] flex md:flex-row sm:flex-col-reverse sm:justify-center items-center">
       <div>
-        <h1 class="text-dark-d2 font-bold text-6xl mb-2 tracking-wide">
+        <h1
+          class="text-center sm:text-left text-dark-d2 font-bold text-6xl mb-2 tracking-wide">
           SmartPoli
         </h1>
-        <p class="w-[25rem] text-dark-d1 text-lg font-light">
-          <i>SmartPoli</i>: A powerful tool to manage payment terms, discounts
-          and interactions with customers and suppliers, optimizing time and
-          processes.
+        <p
+          class="text-center sm:text-left sm:text-lg w-[100%] sm:w-[25rem] text-dark-d1 font-light">
+          <i class="hidden sm:inline-block">SmartPoli:</i> A powerful tool to
+          manage payment terms, discounts and interactions with customers and
+          suppliers, optimizing time and processes.
         </p>
-        <div class="mt-8 flex gap-3">
+        <div class="justify-center sm:justify-start mt-8 flex gap-2">
           <NuxtLink to="/login">
             <button
               class="px-8 py-2 bg-primary-d2/80 rounded-md shadow-md text-light-l2 font-bold cursor-pointer hover:shadow-lg hover:bg-primary-d2 outline-none">
-              Try for free
+              Try now
             </button>
           </NuxtLink>
           <NuxtLink
