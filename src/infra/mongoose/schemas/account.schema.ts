@@ -10,4 +10,5 @@ const schema = new mongoose.Schema(
 )
 
 export const accountSchema =
-  mongoose.models.Account || mongoose.model('Account', schema, 'users')
+  mongoose.models?.Account !== undefined ??
+  mongoose.model('Account', schema, 'users')

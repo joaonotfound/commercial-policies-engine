@@ -1,7 +1,7 @@
+import { adaptLazyFetchToResult } from './result-adapt-lazyfetch'
 import { error } from '@/data'
 import { Result, Session } from '@/domain'
 import { Signup } from '@/view'
-import { adaptLazyFetchToResult } from '@/main'
 
 export class NuxtCreateAccount implements Signup {
   async signup(
