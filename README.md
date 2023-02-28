@@ -4,6 +4,8 @@ _Vue3, Nuxt3, Typescript, Nodejs, Mongodb, Docker and Tailwindcss_
 
 This project was made using best practices and design patterns like BDD, Clean Architecture, DDD, DRY, Small Commits, SOLID principles and TDD.
 
+If you wanna checkout the deployed version, click [here](https://smartpoli.netlify.app/). Unfortunately it's only the frontend, the backend is not yet deployed.
+
 # Commercial Policies Engine
 
 Introduction
