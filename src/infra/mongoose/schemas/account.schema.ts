@@ -9,4 +9,5 @@ const schema = new mongoose.Schema(
   { timestamps: true, strict: true, strictQuery: true }
 )
 
-export const accountSchema = mongoose.model('Account', schema, 'users')
+export const accountSchema =
+  mongoose.models.Account || mongoose.model('Account', schema, 'users')
