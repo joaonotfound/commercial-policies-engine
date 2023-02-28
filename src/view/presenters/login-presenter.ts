@@ -73,6 +73,7 @@ export const useLoginPresenter = (
   const login = async () => {
     try {
       const response = await auth.authenticate(username.value, password.value)
+      console.log(response)
       if (response.ok) {
         await saveSession.saveSession(response.value)
         return homeRouter.redirectToHome()

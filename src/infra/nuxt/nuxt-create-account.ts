@@ -1,8 +1,13 @@
 import { adaptLazyFetchToResult } from './result-adapt-lazyfetch'
-import { error } from '@/data'
+import { error, ok } from '@/data'
 import { Result, Session } from '@/domain'
 import { Signup } from '@/view'
 
+const extractConflictError = (error: string) => {
+  return error.includes('username')
+    ? 'username already in use'
+    : 'email already in use'
+}
 export class NuxtCreateAccount implements Signup {
   async signup(
     email: string | null,
@@ -19,13 +24,9 @@ export class NuxtCreateAccount implements Signup {
     })
 
     return response.ok
-      ? response.value
-      : response.error.statusCode === 401
-      ? error(
-          'We could not find your account. Check your username and password again.'
-        )
+      ? ok(response.value)
       : response.error.statusCode === 409
-      ? error(response.error.body.message)
+      ? error(extractConflictError(response.error.body))
       : error('Ops! Server error! Try again later...')
   }
 }

@@ -1,9 +1,10 @@
-import { useRouter } from 'vue-router'
+import { useRouter } from 'nuxt/app'
 import { HomeRouter } from '@/view'
 
 export class NuxtRedirectToHome implements HomeRouter {
-  redirectToHome(): void {
+  redirectToHome() {
     const router = useRouter()
+    console.log('redirecting...')
     router.replace('/home')
   }
 }

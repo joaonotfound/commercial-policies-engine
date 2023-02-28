@@ -1,5 +1,5 @@
 import { adaptLazyFetchToResult } from './result-adapt-lazyfetch'
-import { error } from '@/data'
+import { error, ok } from '@/data'
 import { Result, Session } from '@/domain'
 import { Authenticate } from '@/view'
 export class NuxtAuthenticate implements Authenticate {
@@ -16,11 +16,9 @@ export class NuxtAuthenticate implements Authenticate {
     })
 
     return response.ok
-      ? response.value
+      ? ok(response.value)
       : response.error.statusCode === 401
-      ? error(
-          'We could not find your account. Check your username and password again.'
-        )
+      ? error('Incorrect username or password.')
       : error('Ops! Server error! Try again later...')
   }
 }

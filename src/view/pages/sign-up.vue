@@ -60,6 +60,7 @@ watch(mainError, (error) => {
         @update:value="clearCredentialsError()" />
       <TextField
         v-model:value="email"
+        text-type="email"
         label="email"
         :state="emailState"
         placeholder="email@email.com"

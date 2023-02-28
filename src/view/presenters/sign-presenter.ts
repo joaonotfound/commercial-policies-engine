@@ -79,7 +79,7 @@ export const useSignupPresenter = (
     passwordState,
     usernameState,
     validForm
-  } = createRef(emailValidator, usernameValidator, passwordValidator)
+  } = createRef(emailValidator, usernameValidator, passwordValidator) as any
 
   const signup = async () => {
     try {
@@ -88,12 +88,14 @@ export const useSignupPresenter = (
         username.value,
         password.value
       )
+      console.log(response)
       if (response.ok) {
         await saveSession.saveSession(response.value)
         return homeRouter.redirectToHome()
       }
       return setMainError(response.error)
-    } catch {
+    } catch (error) {
+      console.log('error on signup page: ', error)
       return setMainError('unexpected error')
     }
   }
