@@ -1,29 +1,7 @@
-import { useLazyFetch } from 'nuxt/app'
-import { watch } from 'vue'
-import { error, ok } from '@/data'
+import { adaptLazyFetchToResult } from './result-adapt-lazyfetch'
+import { error } from '@/data'
 import { Result, Session } from '@/domain'
 import { Authenticate } from '@/view'
-
-type HttpResponse = {
-  statusCode: number | undefined
-  body: any
-}
-
-const adaptLazyFetchToResult = (...args: Parameters<typeof useLazyFetch>) => {
-  return new Promise<Result<any, HttpResponse>>((resolve) => {
-    const { data, error: errorResponse } = useLazyFetch(...args)
-    watch(data, (_) => resolve(ok(data.value)))
-    watch(errorResponse, (_) =>
-      resolve(
-        error({
-          statusCode: errorResponse.value?.statusCode,
-          body: errorResponse.value?.message
-        })
-      )
-    )
-  })
-}
-
 export class NuxtAuthenticate implements Authenticate {
   async authenticate(
     username: string | null,
