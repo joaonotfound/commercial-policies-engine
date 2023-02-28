@@ -1,3 +1,4 @@
+/* eslint-disable require-await */
 import { MockValidateRegisterAccountSchema } from '../mocks'
 import { createLevelError, error } from '@/data'
 import { Session } from '@/domain'
@@ -24,7 +25,7 @@ const makeSut = () => {
 describe('SignupController', () => {
   test('should call validate schema', () => {
     const { sut, validateSchema } = makeSut()
-    const spy = jest.spyOn(validateSchema, 'validateRegisterAccountSchema')
+    const spy = validateSchema.getSpy()
     const mockedAccount = mockRegisterAccount()
 
     sut.handle(mockedAccount)
@@ -56,7 +57,7 @@ describe('SignupController', () => {
 
     expect(response).toEqual(HttpResponse.serverError('unexpected error'))
   })
-  test('should return error 409 if addAccount returns conflict nerror ', async () => {
+  test('should return error 409 if addAccount returns conflict error ', async () => {
     const { sut, addAccount } = makeSut()
     const conflictError = createLevelError('conflict', 'any-error')
     addAccount.mockAddAccount(error(conflictError))
@@ -74,6 +75,19 @@ describe('SignupController', () => {
 
     expect(spy).toBeCalledWith({ username: mockedAccount.username })
   })
+  test('should return unexpected error if generateAccessToken throws', async () => {
+    const { sut, generateAccessToken } = makeSut()
+    const spy = generateAccessToken.getSpy()
+    spy.mockImplementationOnce(async (_: any) => {
+      throw Error
+    })
+    const mockedAccount = mockRegisterAccount()
+
+    const response = await sut.handle(mockedAccount)
+
+    expect(response).toEqual(HttpResponse.serverError('unexpected error'))
+  })
+
   test('should return access token', async () => {
     const { sut, generateAccessToken } = makeSut()
     generateAccessToken.mockGenerateAccessToken('valid-token')

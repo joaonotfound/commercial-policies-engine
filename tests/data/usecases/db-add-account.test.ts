@@ -19,10 +19,25 @@ const makeSut = () => {
     addAccountRepository,
     hash
   )
-  return { sut, findAccountByUsername, addAccountRepository, hash }
+  return {
+    sut,
+    findAccountByUsername,
+    findAccountByEmail,
+    addAccountRepository,
+    hash
+  }
 }
 
 describe('DatabaseAddAccount', () => {
+  test('should call find account by username', async () => {
+    const { sut, findAccountByUsername } = makeSut()
+    const spy = jest.spyOn(findAccountByUsername, 'findAccountByUsername')
+    const mockedAccount = mockRegisterAccount()
+
+    await sut.addAccount(mockedAccount)
+
+    expect(spy).toBeCalledWith(mockedAccount.username)
+  })
   test('should return account with username already exists.', async () => {
     const { sut, findAccountByUsername } = makeSut()
     findAccountByUsername.mockFindAccountByUsername([mockAccount()])
@@ -33,7 +48,16 @@ describe('DatabaseAddAccount', () => {
       error(createLevelError('conflict', 'username already in use'))
     )
   })
+  test('should return conflict if email already in use', async () => {
+    const { sut, findAccountByEmail } = makeSut()
+    findAccountByEmail.mockFindAccountByEmailCall(mockAccount())
 
+    const response = await sut.addAccount(mockRegisterAccount())
+
+    expect(response).toEqual(
+      error(createLevelError('conflict', 'email already exists'))
+    )
+  })
   test('should return public account.', async () => {
     const { sut } = makeSut()
     const mockedAccount = mockRegisterAccount()
@@ -44,24 +68,7 @@ describe('DatabaseAddAccount', () => {
       ok<PublicAccount>({ username: mockedAccount.username })
     )
   })
-  test('should call find account by username', async () => {
-    const { sut, findAccountByUsername } = makeSut()
-    const spy = jest.spyOn(findAccountByUsername, 'findAccountByUsername')
-    const mockedAccount = mockRegisterAccount()
 
-    await sut.addAccount(mockedAccount)
-
-    expect(spy).toBeCalledWith(mockedAccount.username)
-  })
-  test('should call find account by email', async () => {
-    const { sut, findAccountByUsername } = makeSut()
-    const spy = jest.spyOn(findAccountByUsername, 'findAccountByUsername')
-    const mockedAccount = mockRegisterAccount()
-
-    await sut.addAccount(mockedAccount)
-
-    expect(spy).toBeCalledWith(mockedAccount.username)
-  })
   test('should call add account method', async () => {
     const { sut, addAccountRepository } = makeSut()
     const spy = jest.spyOn(addAccountRepository, 'addAccount')
