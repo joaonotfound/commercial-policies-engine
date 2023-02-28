@@ -9,6 +9,7 @@ const schema = new mongoose.Schema(
   { timestamps: true, strict: true, strictQuery: true }
 )
 
-export const accountSchema =
-  mongoose.models?.Account !== undefined ??
-  mongoose.model('Account', schema, 'users')
+export const accountSchema: mongoose.Model<any> =
+  mongoose.models?.Account !== undefined
+    ? mongoose.models.Account
+    : mongoose.model('Account', schema, 'users')
