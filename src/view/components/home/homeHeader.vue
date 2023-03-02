@@ -12,8 +12,8 @@ defineProps<{
 </script>
 
 <template>
-  <div
-    class="bg-primary-d4 flex justify-between items-center text-light px-6 py-3 shadow-lg">
+  <header
+    class="bg-primary-d5 flex justify-between items-center text-light px-6 py-3 shadow-lg">
     <div class="flex items-center gap-5">
       <font-awesome-icon
         class="cursor-pointer"
@@ -24,5 +24,5 @@ defineProps<{
     <div class="cursor-pointer">
       <font-awesome-icon class="text-2xl" :icon="faCircleUser" />
     </div>
-  </div>
+  </header>
 </template>

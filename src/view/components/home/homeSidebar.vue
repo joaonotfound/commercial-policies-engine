@@ -27,8 +27,8 @@ const menus = [chatbox, chatbox, chatbox, chatbox, chatbox]
 </script>
 
 <template>
-  <div
-    class="flex flex-col p-3 w-[300px] h-screen overflow-y-auto text-center bg-primary-d5 text-light">
+  <aside
+    class="absolute top-0 left-0 flex flex-col p-3 h-[100%] overflow-y-auto text-center bg-primary-d5 text-light shadow-lg">
     <SidebarHeader />
     <div
       v-for="favorite of favorites"
@@ -45,7 +45,7 @@ const menus = [chatbox, chatbox, chatbox, chatbox, chatbox]
     </div>
     <SidebarDivier />
     <LogoutButton />
-  </div>
+  </aside>
 </template>
 <style>
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
