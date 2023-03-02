@@ -37,7 +37,7 @@
       </div>
       <div class="hidden md:block text-light sm:hidden md:w-[20rem] lg:w-max">
         <img
-          src="/svg/stipple/finance, e-commerce _ discount, percentage, percent, increase, man, document, paper, page.svg"
+          src="/svg/stipple/finance.svg"
           width="700"
           height="1"
           alt="gears image jpg" />
