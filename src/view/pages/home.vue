@@ -1,4 +1,8 @@
-<!-- eslint-disable vue/multi-word-component-names -->
+<script>
+definePageMeta({
+  layout: 'home'
+})
+</script>
 <template>
   <p>Welcome!</p>
 </template>

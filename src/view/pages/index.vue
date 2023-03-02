@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
-import HomepageHeader from '../components/homepage/HomepageHeader.vue'
-import HeroSection from '../components/homepage/HeroSection.vue'
-import FeaturesSection from '../components/homepage/FeaturesSection.vue'
-import FooterSection from '../components/homepage/FooterSection.vue'
+import HomepageHeader from '../components/landing-page/HomepageHeader.vue'
+import HeroSection from '../components/landing-page/HeroSection.vue'
+import FeaturesSection from '../components/landing-page/FeaturesSection.vue'
+import FooterSection from '../components/landing-page/FooterSection.vue'
 
 useHead({
   title: 'SmartPoli'
