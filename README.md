@@ -43,4 +43,6 @@ If the function is null, it will be possible to execute code within the Web API.
 
 ## Login Page
 
-![Login screen](./documentation/screenshots/login_screen.png)
+![LandingPage](./documentation/screenshots/landing_page.png)
+![HomeScreen](./documentation/screenshots/home_screen.png)
+![LoginScreen](./documentation/screenshots/login_screen.png)
