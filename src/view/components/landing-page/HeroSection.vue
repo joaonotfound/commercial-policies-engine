@@ -1,7 +1,8 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="shadow-sm w-screen flex justify-center bg-primar">
+  <div
+    class="shadow-sm w-screen flex justify-center bg-gradient-to-tl from-primary-l3 to-primary-l3/20">
     <div
       class="p-12 w-[60rem] flex md:flex-row sm:flex-col-reverse sm:justify-center items-center">
       <div>
@@ -37,6 +38,7 @@
       </div>
       <div class="hidden md:block text-light sm:hidden md:w-[20rem] lg:w-max">
         <img
+          class="z-10"
           src="/svg/stipple/finance.svg"
           width="700"
           height="1"
