@@ -14,7 +14,7 @@ const sidebarState = ref<boolean>(false)
       <div class="relative p-2 overflow-y-hidden flex-1">
         <div
           v-if="sidebarState"
-          class="absolute top-0 left-0 bg-dark-l2/20 w-[100%] backdrop-blur-sm h-screen text-light cursor-pointer"
+          class="absolute top-0 left-0 bg-dark-l2/10 w-[100%] h-screen text-light cursor-pointer"
           @click="sidebarState = false"></div>
         <slot />
       </div>
