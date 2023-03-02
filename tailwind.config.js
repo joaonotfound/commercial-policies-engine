@@ -12,14 +12,25 @@ module.exports = {
   theme: {
     colors: {
       primary: {
-        d2: '#004AD7',
-        d1: '#0053F0',
-        DEFAULT: '#0B5FFF',
-        l1: '#80ACFF',
-        l2: '#B3CDFF',
-        l3: '#F0F5FF'
+        d2: '#3F6CB5',
+        d1: '#5E86C7',
+        DEFAULT: '#81A0D3',
+        l1: '#94AFD9',
+        l2: '#CAD7EC',
+        l3: '#F6F8FC'
+      },
+      secondary: {
+        d3: '#A37A39',
+        d2: '#B5883F',
+        d1: '#C79F5E',
+        DEFAULT: '##D3B481',
+        l1: '#D9BF94',
+        l2: '#E0CAA6',
+        l3: '#ECDFCA'
       },
       dark: {
+        d4: '#000000',
+        d3: '#060B12',
         d2: '#111116',
         d1: '#1C1C24',
         DEFAULT: '#272833',
