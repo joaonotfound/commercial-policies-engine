@@ -7,8 +7,10 @@ import { LoginPresenter } from '../presenters'
 import TextField from '@/view/components/TextField.vue'
 
 const app = useNuxtApp()
+useHead({
+  title: 'Login'
+})
 definePageMeta({
-  title: 'Login',
   layout: 'login'
 })
 const {

@@ -4,6 +4,10 @@ import HomepageHeader from '../components/homepage/HomepageHeader.vue'
 import HeroSection from '../components/homepage/HeroSection.vue'
 import FeaturesSection from '../components/homepage/FeaturesSection.vue'
 import FooterSection from '../components/homepage/FooterSection.vue'
+
+useHead({
+  title: 'SmartPoli'
+})
 </script>
 
 <template>
