@@ -33,7 +33,7 @@ const menus = [chatbox, chatbox, chatbox, chatbox, chatbox]
     <div
       v-for="favorite of favorites"
       :key="favorite.label"
-      class="p-3 mt-3 flex items-center rounded-md transition ease-in-out duration-100 cursor-pointer hover:bg-primary-d3">
+      class="p-4 hover:pl-5 mt-3 flex items-center rounded-md transition ease-in-out duration-100 cursor-pointer hover:bg-primary-d3">
       <font-awesome-icon :icon="favorite.icon" />
       <span class="text-[15px] ml-4 text-gray-200 font-bold">{{
         favorite.label
