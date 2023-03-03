@@ -18,7 +18,8 @@ export default defineNuxtConfig({
   plugins: [
     '~/view/plugins/middleware-plugins.ts',
     '~/main/main-plugin.ts',
-    '~/view/plugins/icons-plugin.ts'
+    '~/view/plugins/icons-plugin.ts',
+    '~/view/plugins/theme-plugin.ts'
   ],
   nitro: {
     srcDir: 'src/server',
