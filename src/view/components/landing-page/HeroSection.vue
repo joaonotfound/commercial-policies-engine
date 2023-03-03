@@ -2,16 +2,16 @@
 
 <template>
   <div
-    class="shadow-sm w-screen flex justify-center bg-gradient-to-tl from-primary-l3 to-primary-l3/20">
+    class="shadow-sm w-screen flex justify-center bg-gradient-to-tl from-primary-l3 to-primary-l3/20 dark:from-dark-d4 dark:to-primary-d5">
     <div
       class="p-12 w-[60rem] flex md:flex-row sm:flex-col-reverse sm:justify-center items-center">
       <div>
         <h1
-          class="text-center sm:text-left text-dark-d2 font-bold text-6xl mb-2 tracking-wide">
+          class="text-center sm:text-left text-dark-d2 dark:text-light-l2 font-bold text-6xl mb-2 tracking-wide">
           SmartPoli
         </h1>
         <p
-          class="text-center sm:text-left sm:text-lg w-[100%] sm:w-[25rem] text-dark-d1 font-light">
+          class="text-center sm:text-left sm:text-lg w-[100%] sm:w-[25rem] text-dark-d1 dark:text-light-d1 font-light">
           A powerful tool to manage payment terms, discounts and interactions
           with customers and suppliers, optimizing time and processes.
         </p>

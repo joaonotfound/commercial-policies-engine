@@ -11,15 +11,17 @@ useHead({
 </script>
 
 <template>
-  <div
-    class="w-screen h-screen overflow-auto scrollbar-hide select-none scroll-smooth">
+  <div class="dark">
     <div
-      class="h-screen flex tracking-wide flex-col items-center justify-start">
-      <HomepageHeader />
-      <HeroSection class="flex-1" />
+      class="w-screen h-screen overflow-auto scrollbar-hide select-none scroll-smooth dark:bg-dark-d4 dark:text-light text-dark">
+      <div
+        class="h-screen flex tracking-wide flex-col items-center justify-start">
+        <HomepageHeader />
+        <HeroSection class="flex-1" />
+      </div>
+      <FeaturesSection />
+      <FooterSection />
     </div>
-    <FeaturesSection />
-    <FooterSection />
   </div>
 </template>
 

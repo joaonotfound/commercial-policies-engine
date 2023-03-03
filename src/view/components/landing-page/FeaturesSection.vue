@@ -4,10 +4,10 @@ import FeatureComponent from './FeatureComponent.vue'
 
 <template>
   <div
-    class="bg-gradient-to-tr from-light-d2/40 to-light-l1/40 p-10 flex flex-col items-center bg-primary-d2/08">
+    class="light:bg-gradient-to-tr from-light-d2/40 to-light-l1/40 dark:bg-dark-d5 p-10 flex flex-col items-center bg-primary-d2/08">
     <p class="font-light text-xl mb-2 uppercase tracking-tighter">Features</p>
     <h2
-      class="text-dark-l2/80 font-bold text-3xl mb-12 tracking-wider text-center">
+      class="text-dark-l2/80 dark:text-light-l2/80 font-bold text-3xl mb-12 tracking-wider text-center">
       Our Features and Services.
     </h2>
     <div
@@ -28,7 +28,7 @@ import FeatureComponent from './FeatureComponent.vue'
 
     <a
       href="https://storyset.com/people"
-      class="text-dark-l2/80 mt-16 hover:underline"
+      class="text-dark-l2/80 mt-16 hover:underline dark:text-light-d2"
       >People illustrations by Storyset</a
     >
   </div>
