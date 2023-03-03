@@ -1,17 +1,23 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
+import { useNuxtApp } from 'nuxt/app'
+import { ThemeProvider } from '../presenters'
 import HomepageHeader from '../components/landing-page/HomepageHeader.vue'
 import HeroSection from '../components/landing-page/HeroSection.vue'
 import FeaturesSection from '../components/landing-page/FeaturesSection.vue'
 import FooterSection from '../components/landing-page/FooterSection.vue'
 
+const app = useNuxtApp()
+
+const theme = app.$themeProvider as ThemeProvider
+const dark = theme.isDark
 useHead({
   title: 'SmartPoli'
 })
 </script>
 
 <template>
-  <div class="dark">
+  <div :class="dark ? 'dark' : 'light'">
     <div
       class="w-screen h-screen overflow-auto scrollbar-hide select-none scroll-smooth dark:bg-dark-d4 dark:text-light text-dark">
       <div
