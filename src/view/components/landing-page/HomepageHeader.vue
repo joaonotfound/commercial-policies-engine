@@ -4,7 +4,7 @@ import DarkmodeToggle from './darkmodeToggle.vue'
 
 <template>
   <div
-    class="sticky top-0 left-0 p-2 backdrop-blur-sm bg-light-l2/95 w-screen flex items-center justify-center shadow-md dark:shadow-sm dark:shadow-dark-d4/40 shadow-dark-l2/[4%] dark:bg-primary-d5">
+    class="sticky top-0 left-0 p-2 backdrop-blur-sm bg-light-l2/90 w-screen flex items-center justify-center shadow-md dark:shadow-sm dark:shadow-dark-d4/40 shadow-dark-l2/[4%] dark:bg-primary-d5/90">
     <div class="w-[60rem] p-2 flex justify-between items-center">
       <NuxtLink to="/">
         <p
