@@ -43,6 +43,7 @@ If the function is null, it will be possible to execute code within the Web API.
 
 ## Login Page
 
-![LandingPage](./documentation/screenshots/landing_page.png)
+![LandingPageLight](./documentation/screenshots/landing_page_light.png)
+![LandingPageDark](./documentation/screenshots/landing_page_dark.png)
 ![HomeScreen](./documentation/screenshots/home_screen.png)
 ![LoginScreen](./documentation/screenshots/login_screen.png)
