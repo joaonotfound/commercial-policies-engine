@@ -15,11 +15,23 @@ export default defineNuxtConfig({
   runtimeConfig: {
     mongoUrl: process.env.MONGO_URL
   },
+  build: {
+    transpile:
+      process.env.NODE_ENV === 'production'
+        ? [
+            'naive-ui',
+            'vueuc',
+            '@css-render/vue3-ssr',
+            '@juggle/resize-observer'
+          ]
+        : ['@juggle/resize-observer']
+  },
   plugins: [
     '~/view/plugins/middleware-plugins.ts',
     '~/main/main-plugin.ts',
     '~/view/plugins/icons-plugin.ts',
     '~/view/plugins/theme-plugin.ts',
+    '~/view/plugins/sidebar-plugin.ts',
     '~/view/plugins/sidebar-plugin.ts'
   ],
   nitro: {

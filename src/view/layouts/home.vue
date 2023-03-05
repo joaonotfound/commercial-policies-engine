@@ -1,8 +1,31 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
 import { useNuxtApp } from 'nuxt/app'
+import { darkTheme , NConfigProvider } from 'naive-ui'
 import homeHeader from '../components/home/homeHeader.vue'
 import { SidebarProvider } from '../presenters'
+
+/**
+ * Use this for type hints under js file
+ * @type import('naive-ui').GlobalThemeOverrides
+ */
+const themeOverrides = {
+  common: {
+    primaryColor: '#81A0D3'
+  },
+  Button: {
+    textColor: '#fff'
+  },
+  Select: {
+    peers: {
+      InternalSelection: {
+        textColor: '#fff'
+      }
+    }
+  }
+  // ...
+}
+
 const app = useNuxtApp()
 const sidebar = app.$sidebarProvider as SidebarProvider
 
@@ -10,24 +33,26 @@ const sidebarState = sidebar.opened
 </script>
 
 <template>
-  <div class="relative flex items-center">
-    <Transition>
-      <div class="flex flex-1 bg-light-d2 h-screen flex-col main">
-        <homeHeader v-model:sidebar-state="sidebarState" class="z-10" />
+  <n-config-provider :theme="darkTheme" :theme-overrides="themeOverrides">
+    <div class="relative flex items-center">
+      <Transition>
+        <div class="flex flex-1 bg-light-d2 h-screen flex-col main">
+          <homeHeader v-model:sidebar-state="sidebarState" class="z-10" />
 
-        <div class="relative p-2 overflow-y-hidden flex-1">
-          <Transition name="sidebar">
-            <HomeSidebar v-show="sidebarState" class="sidebar z-10" />
-          </Transition>
-          <main
-            v-if="sidebarState"
-            class="absolute top-0 left-0 bg-dark-l2/10 w-[100%] h-screen text-light cursor-pointer"
-            @click="sidebarState = false"></main>
-          <slot />
+          <div class="relative p-2 overflow-y-hidden flex-1">
+            <Transition name="sidebar">
+              <HomeSidebar v-show="sidebarState" class="sidebar z-10" />
+            </Transition>
+            <main
+              v-if="sidebarState"
+              class="absolute top-0 left-0 bg-dark-l2/10 w-[100%] h-screen text-light cursor-pointer"
+              @click="sidebarState = false"></main>
+            <slot />
+          </div>
         </div>
-      </div>
-    </Transition>
-  </div>
+      </Transition>
+    </div>
+  </n-config-provider>
 </template>
 
 <style scoped>
