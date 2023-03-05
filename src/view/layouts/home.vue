@@ -1,8 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { useNuxtApp } from 'nuxt/app'
 import homeHeader from '../components/home/homeHeader.vue'
-const sidebarState = ref<boolean>(false)
+import { SidebarProvider } from '../presenters'
+const app = useNuxtApp()
+const sidebar = app.$sidebarProvider as SidebarProvider
+
+const sidebarState = sidebar.opened
 </script>
 
 <template>

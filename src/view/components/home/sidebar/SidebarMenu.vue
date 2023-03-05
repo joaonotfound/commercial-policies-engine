@@ -5,7 +5,10 @@ import {
   faArrowUp,
   IconDefinition
 } from '@fortawesome/free-solid-svg-icons'
-import { useRouter } from 'nuxt/app'
+import { useNuxtApp, useRouter } from 'nuxt/app'
+import { SidebarProvider } from '@/view'
+const app = useNuxtApp()
+const sidebar = app.$sidebarProvider as SidebarProvider
 
 type MenuWithChildren = {
   label: string
@@ -33,7 +36,7 @@ const handleMainclick = () => {
   if (containsItems(props.menu)) {
     opened.value = !opened.value
   } else {
-    console.log('redirecting...')
+    sidebar.setOpened(false)
     router.replace(props.menu.route)
   }
 }
