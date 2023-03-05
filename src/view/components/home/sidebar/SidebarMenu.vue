@@ -42,12 +42,12 @@ const handleMainclick = () => {
 <template>
   <div>
     <div
-      class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-primary-d3 text-white hover:pl-5"
+      class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-primary-d3 text-white"
       @click="handleMainclick()">
       <div class="flex justify-between w-full items-center">
         <div>
           <font-awesome-icon :icon="menu.icon" />
-          <span class="text-[15px] ml-4 text-gray-200 font-bold hover:pl-4">{{
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">{{
             menu.label
           }}</span>
         </div>

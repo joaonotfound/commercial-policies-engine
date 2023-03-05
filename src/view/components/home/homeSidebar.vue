@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-import { faBookmark, faBox, faHome } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBookmark,
+  faBox,
+  faHome,
+  faUser,
+  faShoppingCart,
+  faGears
+} from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'nuxt/app'
 import SidebarHeader from './sidebar/SidebarHeader.vue'
 import SidebarMenu from './sidebar/SidebarMenu.vue'
@@ -23,30 +30,38 @@ const redirect = (path: string) => {
   router.replace(path)
 }
 const clients = {
-  label: 'Clients',
-  icon: faBox,
-  route: '/clients',
+  label: 'Customers',
+  icon: faUser,
+  route: '/customers',
   opened: false
   // opened: true,
   // items: ['Social', 'Personal', 'Friends']
 }
 const orders = {
   label: 'Orders',
-  icon: faBox,
+  icon: faShoppingCart,
   route: '/orders',
+  opened: false
+  // opened: true,
+  // items: ['Social', 'Personal', 'Friends']
+}
+const products = {
+  label: 'Products',
+  icon: faBox,
+  route: '/products',
   opened: false
   // opened: true,
   // items: ['Social', 'Personal', 'Friends']
 }
 const rules = {
   label: 'Rules',
-  icon: faBox,
+  icon: faGears,
   route: '/rules',
   opened: false
   // opened: true,
   // items: ['Social', 'Personal', 'Friends']
 }
-const menus = [clients, orders, rules]
+const menus = [clients, orders, products, rules]
 
 // const extended = ref<boolen>(true)
 </script>
