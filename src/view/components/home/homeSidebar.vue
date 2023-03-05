@@ -8,6 +8,7 @@ import {
   faGears
 } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'nuxt/app'
+import DarkmodeToggle from '../landing-page/darkmodeToggle.vue'
 import SidebarHeader from './sidebar/SidebarHeader.vue'
 import SidebarMenu from './sidebar/SidebarMenu.vue'
 import SidebarDivier from './sidebar/SidebarDivider.vue'
@@ -85,7 +86,10 @@ const menus = [clients, orders, products, rules]
       <SidebarMenu v-for="menu of menus" :key="menu.label" :menu="menu" />
     </div>
     <SidebarDivier />
-    <LogoutButton />
+    <div class="flex items-center justify-between pr-4">
+      <LogoutButton />
+      <DarkmodeToggle />
+    </div>
   </aside>
 </template>
 <style>
