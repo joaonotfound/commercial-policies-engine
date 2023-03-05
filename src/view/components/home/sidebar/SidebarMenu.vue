@@ -5,27 +5,45 @@ import {
   faArrowUp,
   IconDefinition
 } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'nuxt/app'
 
-type Menu = {
+type MenuWithChildren = {
   label: string
   icon: IconDefinition
   opened: boolean
   items: string[]
 }
+type MenuWithoutChildren = {
+  label: string
+  icon: IconDefinition
+  route: string
+  opened: boolean
+}
+type Menu = MenuWithChildren | MenuWithoutChildren
 
-defineProps<{
+const router = useRouter()
+const props: any = defineProps<{
   menu: Menu
 }>()
-
+const containsItems = (items: object): items is { items: string[] } =>
+  'items' in items
 const opened = ref<boolean>(false)
+
+const handleMainclick = () => {
+  if (containsItems(props.menu)) {
+    opened.value = !opened.value
+  } else {
+    console.log('redirecting...')
+    router.replace(props.menu.route)
+  }
+}
 </script>
 
 <template>
   <div>
     <div
       class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-primary-d3 text-white hover:pl-5"
-      @click="opened = !opened">
-      <i class="bi bi-chat-left-text-fill"></i>
+      @click="handleMainclick()">
       <div class="flex justify-between w-full items-center">
         <div>
           <font-awesome-icon :icon="menu.icon" />
@@ -34,14 +52,17 @@ const opened = ref<boolean>(false)
           }}</span>
         </div>
 
-        <span id="arrow" class="text-sm text-light-l2/50">
+        <span
+          v-if="containsItems(menu)"
+          id="arrow"
+          class="text-sm text-light-l2/50">
           <font-awesome-icon :icon="opened ? faArrowUp : faArrowDown" />
         </span>
       </div>
     </div>
-    <div v-if="opened">
+    <div v-if="opened && props.items">
       <div
-        v-for="submenu of menu.items"
+        v-for="submenu of props.items"
         :key="submenu"
         class="text-left text-sm mt-2 w-4/5 mx-auto text-gray-200 font-bold flex flex-col">
         <h2

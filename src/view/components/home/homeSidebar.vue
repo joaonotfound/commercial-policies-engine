@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { faBookmark, faBox, faHome } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'nuxt/app'
 import SidebarHeader from './sidebar/SidebarHeader.vue'
 import SidebarMenu from './sidebar/SidebarMenu.vue'
 import SidebarDivier from './sidebar/SidebarDivider.vue'
@@ -8,20 +9,44 @@ import LogoutButton from './sidebar/SidebarLogoutButton.vue'
 const favorites = [
   {
     label: 'home',
-    icon: faHome
+    icon: faHome,
+    route: '/home'
   },
   {
     label: 'bookmark',
-    icon: faBookmark
+    icon: faBookmark,
+    route: '/bookmarks'
   }
 ]
-const chatbox = {
-  label: 'Chatbox',
-  icon: faBox,
-  opened: true,
-  items: ['Social', 'Personal', 'Friends']
+const router = useRouter()
+const redirect = (path: string) => {
+  router.replace(path)
 }
-const menus = [chatbox, chatbox, chatbox, chatbox, chatbox]
+const clients = {
+  label: 'Clients',
+  icon: faBox,
+  route: '/clients',
+  opened: false
+  // opened: true,
+  // items: ['Social', 'Personal', 'Friends']
+}
+const orders = {
+  label: 'Orders',
+  icon: faBox,
+  route: '/orders',
+  opened: false
+  // opened: true,
+  // items: ['Social', 'Personal', 'Friends']
+}
+const rules = {
+  label: 'Rules',
+  icon: faBox,
+  route: '/rules',
+  opened: false
+  // opened: true,
+  // items: ['Social', 'Personal', 'Friends']
+}
+const menus = [clients, orders, rules]
 
 // const extended = ref<boolen>(true)
 </script>
@@ -33,7 +58,8 @@ const menus = [chatbox, chatbox, chatbox, chatbox, chatbox]
     <div
       v-for="favorite of favorites"
       :key="favorite.label"
-      class="p-4 hover:pl-5 mt-3 flex items-center rounded-md transition ease-in-out duration-100 cursor-pointer hover:bg-primary-d3">
+      class="p-4 hover:pl-5 mt-3 flex items-center rounded-md transition ease-in-out duration-100 cursor-pointer hover:bg-primary-d3"
+      @click="redirect(favorite.route)">
       <font-awesome-icon :icon="favorite.icon" />
       <span class="text-[15px] ml-4 text-gray-200 font-bold">{{
         favorite.label

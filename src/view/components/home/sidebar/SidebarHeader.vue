@@ -5,7 +5,7 @@ import SidebarDivider from './SidebarDivider.vue'
 
 <template>
   <div
-    class="p-3 flex items-center rounded-md px-4 duration-300 cursor-pointer text-white bg-dark-l2/70">
+    class="p-3 select-none flex items-center rounded-md px-4 duration-300 cursor-pointer text-white bg-dark-l2/70">
     <font-awesome-icon :icon="faSearch" />
     <input
       type="text"
