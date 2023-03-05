@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-monaco-editor'],
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
   components: ['view/components'],
   dir: {

@@ -1972,6 +1972,30 @@
     unimport "^2.2.4"
     untyped "^1.2.2"
 
+"@nuxt/kit@^3.2.2":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.2.3.tgz#97d8b4a4bedda4452ea18629c73c6301a964d492"
+  integrity sha512-wcsVlQLwGkh1cRhAFWHc3uYHdIxFTRNdRUzNyfqoX9DL0Fuga3K75q/PBY0xg1viA9R6F5BMPhc7KDLSWbXtWg==
+  dependencies:
+    "@nuxt/schema" "3.2.3"
+    c12 "^1.1.2"
+    consola "^2.15.3"
+    defu "^6.1.2"
+    globby "^13.1.3"
+    hash-sum "^2.0.0"
+    ignore "^5.2.4"
+    jiti "^1.17.1"
+    knitwork "^1.0.0"
+    lodash.template "^4.5.0"
+    mlly "^1.1.1"
+    pathe "^1.1.0"
+    pkg-types "^1.0.2"
+    scule "^1.0.0"
+    semver "^7.3.8"
+    unctx "^2.1.2"
+    unimport "^2.2.4"
+    untyped "^1.2.2"
+
 "@nuxt/postcss8@^1.1.3":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nuxt/postcss8/-/postcss8-1.1.3.tgz#a7f8f6f2a664430bbdd3b175498eb693e0b1b351"
@@ -2002,6 +2026,25 @@
     scule "^1.0.0"
     std-env "^3.3.2"
     ufo "^1.1.0"
+    unimport "^2.2.4"
+    untyped "^1.2.2"
+
+"@nuxt/schema@3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@nuxt/schema/-/schema-3.2.3.tgz#fe84483237a5f6177ebb051422cf556ffab80aa2"
+  integrity sha512-AXzRnBivCwn5RpNFWjUkvOPGPSHl5BM+6GfOpSNglPXi0tiQJ+rawSl7no7BkxGDmQ44Bx9AXwvHTrgjpcuo4g==
+  dependencies:
+    c12 "^1.1.2"
+    create-require "^1.1.1"
+    defu "^6.1.2"
+    hookable "^5.4.2"
+    jiti "^1.17.1"
+    pathe "^1.1.0"
+    pkg-types "^1.0.2"
+    postcss-import-resolver "^2.0.0"
+    scule "^1.0.0"
+    std-env "^3.3.2"
+    ufo "^1.1.1"
     unimport "^2.2.4"
     untyped "^1.2.2"
 
@@ -7120,6 +7163,11 @@ mlly@^1.0.0, mlly@^1.1.0, mlly@^1.1.1:
     pkg-types "^1.0.1"
     ufo "^1.1.0"
 
+monaco-editor@^0.36.1:
+  version "0.36.1"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.36.1.tgz#aad528c815605307473a1634612946921d8079b5"
+  integrity sha512-/CaclMHKQ3A6rnzBzOADfwdSJ25BFoFT0Emxsc4zYVyav5SkK9iA6lEtIeuN/oRYbwPgviJT+t3l+sjFa28jYg==
+
 mongodb-connection-string-url@^2.5.4:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/mongodb-connection-string-url/-/mongodb-connection-string-url-2.6.0.tgz#57901bf352372abdde812c81be47b75c6b2ec5cf"
@@ -7409,6 +7457,14 @@ nuxi@3.2.2:
   integrity sha512-JqPJqwfzQCVrjkMh+9Dd3q4qu7wYbmr+39SfjC6LL1oTNLFUjvjHG42tFJBDVHO+GImAo/kNjWGp2N/Jwo8/ag==
   optionalDependencies:
     fsevents "~2.3.2"
+
+nuxt-monaco-editor@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/nuxt-monaco-editor/-/nuxt-monaco-editor-1.1.4.tgz#9b0f49209515d46b8432349d89ad1308fd0fcbc4"
+  integrity sha512-Qa5FilHR0DbWdFRBtLuaPTV+X0wJzRThDtDIucczFXqxuQ9xaJXYho2Yhm9OH4DgVmdWvDllpIrEShSG3Oc3aQ==
+  dependencies:
+    "@nuxt/kit" "^3.2.2"
+    vite-plugin-static-copy "^0.13.0"
 
 nuxt@^3.2.2:
   version "3.2.2"
@@ -9365,6 +9421,11 @@ ufo@^1.0.0, ufo@^1.1.0:
   resolved "https://registry.yarnpkg.com/ufo/-/ufo-1.1.0.tgz#a5c4c814b0a98f7e0ca42c478688663fd3e3c037"
   integrity sha512-LQc2s/ZDMaCN3QLpa+uzHUOQ7SdV0qgv3VBXOolQGXTaaZpIur6PwUclF5nN2hNkiTRcUugXd1zFOW3FLJ135Q==
 
+ufo@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ufo/-/ufo-1.1.1.tgz#e70265e7152f3aba425bd013d150b2cdf4056d7c"
+  integrity sha512-MvlCc4GHrmZdAllBc0iUDowff36Q9Ndw/UzqmEKyrfSzokTd9ZCy1i+IIk5hrYKkjoYVQyNbrw7/F8XJ2rEwTg==
+
 unbox-primitive@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/unbox-primitive/-/unbox-primitive-1.0.2.tgz#29032021057d5e6cdbd08c5129c226dff8ed6f9e"
@@ -9573,6 +9634,16 @@ vite-plugin-checker@^0.5.5:
     vscode-languageserver "^7.0.0"
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^3.0.2"
+
+vite-plugin-static-copy@^0.13.0:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-static-copy/-/vite-plugin-static-copy-0.13.1.tgz#0560c904f3c6b0acf756bd81d53131f4a8072d55"
+  integrity sha512-KwIcGBT1aOxSq+laK3VmSngoEa3HXWj/6ZEXdv+y59eZ7p/XSuPahoDo+CfYW22JjTdnstgeKWiX+78KNgDu6g==
+  dependencies:
+    chokidar "^3.5.3"
+    fast-glob "^3.2.11"
+    fs-extra "^11.1.0"
+    picocolors "^1.0.0"
 
 "vite@^3.0.0 || ^4.0.0", vite@~4.1.2:
   version "4.1.2"
