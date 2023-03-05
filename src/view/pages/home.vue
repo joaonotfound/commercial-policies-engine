@@ -12,28 +12,24 @@ definePageMeta({
 })
 
 const content = ref<string>(`
-
-  /* do not delete this declaration of types */
-  type OrderItem = {
-    price: number
+/* do not delete this declaration of types */
+type OrderItem = {
+  price: number
+}
+type Discount = {
+  startPrice: number,
+  discountApplied: number,
+  endPrice: number
+}
+export default async function calculateDiscount(order: OrderItem): Promise<Discount> {
+  /* he goes all the logic of the function and you must return the response */
+  const discount = 0.5
+  return {
+    startPrice: order.price,
+    discountApplied: 100 * discount,
+    endPrice: order.price * discount
   }
-
-  type Discount = {
-    startPrice: number,
-    discountApplied: number,
-    endPrice: number
-  }
-
-  export default async function calculateDiscount(order: OrderItem): Promise<Discount> {
-    /* he goes all the logic of the function and you must return the */
-    const discount = 0.5
-    return {
-      startPrice: order.price,
-      discountApplied: 100 * discount,
-      endPrice: order.price * discount
-    }
-  }
-`)
+}`)
 
 const options = {
   theme: 'vs-dark'
