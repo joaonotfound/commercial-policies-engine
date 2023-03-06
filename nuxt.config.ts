@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', 'nuxt-monaco-editor'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-monaco-editor', '@element-plus/nuxt'],
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
   components: ['view/components'],
   dir: {
@@ -14,17 +14,6 @@ export default defineNuxtConfig({
   srcDir: 'src/',
   runtimeConfig: {
     mongoUrl: process.env.MONGO_URL
-  },
-  build: {
-    transpile:
-      process.env.NODE_ENV === 'production'
-        ? [
-            'naive-ui',
-            'vueuc',
-            '@css-render/vue3-ssr',
-            '@juggle/resize-observer'
-          ]
-        : ['@juggle/resize-observer']
   },
   plugins: [
     '~/view/plugins/middleware-plugins.ts',
