@@ -47,3 +47,4 @@ If the function is null, it will be possible to execute code within the Web API.
 ![LandingPageDark](./documentation/screenshots/landing_page_dark.png)
 ![HomeScreen](./documentation/screenshots/home_screen.png)
 ![LoginScreen](./documentation/screenshots/login_screen.png)
+![EditorScreen](./documentation/screenshots/editor.png)
