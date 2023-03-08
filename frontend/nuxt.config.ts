@@ -12,9 +12,7 @@ export default defineNuxtConfig({
     plugins: 'view/plugins'
   },
   srcDir: 'src/',
-  runtimeConfig: {
-    mongoUrl: process.env.MONGO_URL
-  },
+  runtimeConfig: {},
   plugins: [
     '~/view/plugins/middleware-plugins.ts',
     '~/main/main-plugin.ts',
