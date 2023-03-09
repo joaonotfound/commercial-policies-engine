@@ -8,7 +8,7 @@
   "scripts": {
     "nuxt:dev": "yarn workspace frontend dev",
     "exp:dev": "yarn workspace backend start",
-    "start:docker": "docker compose up -d --quiet-pull mongodb",
+    "start:docker": "docker compose up -d ",
     "stop:docker": "docker compose down",
     "sh:docker": "sudo docker run -it -v $(pwd)/packages/:/app node:19-alpine /bin/sh",
     "prepare": "husky install",

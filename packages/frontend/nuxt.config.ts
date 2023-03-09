@@ -12,7 +12,14 @@ export default defineNuxtConfig({
     plugins: 'view/plugins'
   },
   srcDir: 'src/',
-  runtimeConfig: {},
+  runtimeConfig: {
+    public: {
+      BACKEND_URL:
+        process.env.NODE_ENV === 'production'
+          ? 'deployed-backend-here'
+          : 'http://localhost:5000'
+    }
+  },
   plugins: [
     '~/view/plugins/middleware-plugins.ts',
     '~/main/main-plugin.ts',

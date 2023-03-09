@@ -1,3 +1,4 @@
+import { useRuntimeConfig } from 'nuxt/app'
 import { adaptLazyFetchToResult } from './result-adapt-lazyfetch'
 import { error, ok } from '@/data'
 import { Result, Session } from '@/domain'
@@ -14,14 +15,19 @@ export class NuxtCreateAccount implements Signup {
     username: string | null,
     password: string | null
   ): Promise<Result<Session, string>> {
-    const response = await adaptLazyFetchToResult('/api/signup', {
-      method: 'post',
-      body: {
-        email,
-        username,
-        password
+    const config = useRuntimeConfig()
+    console.log('config: ', config)
+    const response = await adaptLazyFetchToResult(
+      `${config.BACKEND_URL}/api/signup`,
+      {
+        method: 'post',
+        body: {
+          email,
+          username,
+          password
+        }
       }
-    })
+    )
 
     return response.ok
       ? ok(response.value)

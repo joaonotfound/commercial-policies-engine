@@ -1,3 +1,4 @@
+import { useRuntimeConfig } from 'nuxt/app'
 import { adaptLazyFetchToResult } from './result-adapt-lazyfetch'
 import { error, ok } from '@/data'
 import { Result, Session } from '@/domain'
@@ -7,13 +8,17 @@ export class NuxtAuthenticate implements Authenticate {
     username: string | null,
     password: string | null
   ): Promise<Result<Session, string>> {
-    const response = await adaptLazyFetchToResult('/api/logon', {
-      method: 'post',
-      body: {
-        username,
-        password
+    const config = useRuntimeConfig()
+    const response = await adaptLazyFetchToResult(
+      `${config.BACKEND_URL}/api/logon`,
+      {
+        method: 'post',
+        body: {
+          username,
+          password
+        }
       }
-    })
+    )
 
     return response.ok
       ? ok(response.value)
