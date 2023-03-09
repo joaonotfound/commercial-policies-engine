@@ -4,8 +4,8 @@ import {
   MockFindAccountByUsername,
   MockHasher
 } from '../mocks'
+import { mockAccount, mockRegisterAccount } from '../../domain'
 import { PublicAccount } from '@/domain'
-import { mockAccount, mockRegisterAccount } from '@/tests/domain'
 import { ok, error, DatabaseAddAccount, createLevelError } from '@/data'
 
 const makeSut = () => {

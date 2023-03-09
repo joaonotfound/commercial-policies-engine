@@ -1,11 +1,12 @@
 {
+  // "extends": "../tsconfig.json",
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["es2015", "DOM"],
 
-    "rootDir": "src",
+    "rootDirs": ["src", "tests"],
     "baseUrl": "src",
     "outDir": "dist",
 
@@ -28,8 +29,9 @@
     "declaration": true,
 
     "paths": {
+      "@/tests/*": ["../tests/*"],
       "@/*": ["*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src", "tests"]
 }
