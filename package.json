@@ -17,7 +17,7 @@
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --fix",
     "*.**": "prettier --check --ignore-unknown",
-    "*.{vue,js,ts}": "yarn test --findRelatedTests"
+    "*.{vue,js,ts}": "jest --passWithNoTests --runInBand --no-cache --silent --findRelatedTests"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
