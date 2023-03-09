@@ -12,7 +12,7 @@
     "stop:docker": "docker compose down",
     "sh:docker": "sudo docker run -it -v $(pwd):/app node:19-alpine /bin/sh",
     "prepare": "husky install",
-    "test": "jest --passWithNoTests --runInBand --no-cache --silent"
+    "test": "lerna run test"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --fix",
@@ -28,8 +28,8 @@
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-vue": "^9.9.0",
     "husky": "^8.0.3",
+    "lerna": "^6.5.1",
     "lint-staged": "^13.1.2",
     "prettier": "^2.8.4"
-  },
-  "dependencies": {}
+  }
 }
