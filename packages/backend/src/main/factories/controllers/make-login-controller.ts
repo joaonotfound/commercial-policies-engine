@@ -1,6 +1,6 @@
-import { LoginController } from "@/presentation"
-import { makeAuthentication } from "../usecases"
+import { makeAuthentication } from '../usecases'
+import { LoginController } from '@/presentation'
 
 export const makeLoginController = () => {
-    return new LoginController(makeAuthentication())
+  return new LoginController(makeAuthentication())
 }
