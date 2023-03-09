@@ -1,5 +1,4 @@
 {
-  // "extends": "../tsconfig.json",
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
@@ -9,7 +8,7 @@
     "rootDirs": ["src", "tests"],
     "baseUrl": "src",
     "outDir": "dist",
-
+    "types": ["@types/jest"],
     "strict": true,
     "alwaysStrict": true,
     "strictFunctionTypes": true,

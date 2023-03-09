@@ -8,14 +8,23 @@ services:
     ports:
       - 27017:27017
 
-  dev-cpe:
+  smartpoli-backend:
+    image: node:19-alpine
+    working_dir: /app
+    command: yarn start
+    volumes:
+      - ./packages/backend:/app
+    environment:
+      - MONGO_URL=mongodb://root:password@mongodb:27017
+    ports:
+      - 5000:5000
+
+  smartpoli-frontend:
     image: node:19-alpine
     working_dir: /app
     command: yarn dev --hostname 0.0.0.0
     volumes:
-      - ./:/app
-    environment:
-      - MONGO_URL=mongodb://root:password@mongodb:27017
+      - ./packages/frontend:/app
     ports:
       - 3000:3000
       - 24678:24678
